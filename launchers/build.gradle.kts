@@ -9,5 +9,9 @@ plugins {
 }
 
 dependencies {
-    api(project(":client"))
+ //   api(project(":client"))
+    api(project(":server"))
+    implementation(libs.lsp4j)
+    implementation(libs.slf4j.api)
+    implementation(libs.slf4j.simple)
 }

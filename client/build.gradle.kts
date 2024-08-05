@@ -7,3 +7,9 @@
 plugins {
     id("buildlogic.java-library-conventions")
 }
+
+dependencies {
+    implementation(libs.lsp4j)
+    testImplementation(libs.slf4j.api)
+    testImplementation(libs.slf4j.simple)
+}

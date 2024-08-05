@@ -22,4 +22,4 @@ rootProject.name = "language-support"
 // client
 // extensions/vscode
 // extensions/intellij etc.
-include("server", "client", "utilities")
+include("server", "client", "launchers")

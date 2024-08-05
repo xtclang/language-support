@@ -22,8 +22,8 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/build-logic" />
             <option value="$PROJECT_DIR$/client" />
+            <option value="$PROJECT_DIR$/launchers" />
             <option value="$PROJECT_DIR$/server" />
-            <option value="$PROJECT_DIR$/utilities" />
           </set>
         </option>
       </GradleProjectSettings>

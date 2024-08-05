@@ -3,79 +3,106 @@
  */
 package org.xtclang.lsp.client;
 
+import org.eclipse.lsp4j.DidOpenTextDocumentParams;
+import org.eclipse.lsp4j.InitializeParams;
+import org.eclipse.lsp4j.MessageActionItem;
+import org.eclipse.lsp4j.MessageParams;
+import org.eclipse.lsp4j.PublishDiagnosticsParams;
+import org.eclipse.lsp4j.ShowMessageRequestParams;
+import org.eclipse.lsp4j.TextDocumentItem;
+import org.eclipse.lsp4j.jsonrpc.Launcher;
+import org.eclipse.lsp4j.launch.LSPLauncher;
+
+import org.eclipse.lsp4j.services.LanguageClient;
+import org.eclipse.lsp4j.services.LanguageServer;
+
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+
+// To test the setup, first run the LanguageServerLauncher class to start the server. Then run the SimpleClient class to start the client. You should see log messages from the server indicating that a document was opened.
+
 public class XtcLanguageClient {
-    private Node head;
 
-    public void add(String element) {
-        Node newNode = new Node(element);
-
-        Node it = tail(head);
-        if (it == null) {
-            head = newNode;
-        } else {
-            it.next = newNode;
-        }
-    }
-
-    private static Node tail(Node head) {
-        Node it;
-
-        for (it = head; it != null && it.next != null; it = it.next) {}
-
-        return it;
-    }
-
-    public boolean remove(String element) {
-        boolean result = false;
-        Node previousIt = null;
-        Node it = null;
-        for (it = head; !result && it != null; previousIt = it, it = it.next) {
-            if (0 == element.compareTo(it.data)) {
-                result = true;
-                unlink(previousIt, it);
-                break;
+    public static void main(String[] args) throws IOException {
+        LanguageClient client = new LanguageClient() {
+            @Override
+            public void telemetryEvent(Object object) {
             }
-        }
 
-        return result;
-    }
+            @Override
+            public void publishDiagnostics(PublishDiagnosticsParams diagnostics) {
+            }
 
-    private void unlink(Node previousIt, Node currentIt) {
-        if (currentIt == head) {
-            head = currentIt.next;
-        } else {
-            previousIt.next = currentIt.next;
-        }
-    }
+            @Override
+            public void showMessage(MessageParams messageParams) {
+                System.out.println("Message from server: " + messageParams.getMessage());
+            }
 
-    public int size() {
-        int size = 0;
+            @Override
+            public CompletableFuture<MessageActionItem> showMessageRequest(ShowMessageRequestParams requestParams) {
+                return CompletableFuture.completedFuture(new MessageActionItem("OK"));
+            }
 
-        for (Node it = head; it != null; ++size, it = it.next) {}
+            @Override
+            public void logMessage(final MessageParams messageParams) {
+                System.out.println("Log from server: " + messageParams.getMessage());
+            }
+        };
 
-        return size;
-    }
+        final Launcher<LanguageServer> launcher = LSPLauncher.createClientLauncher(client, System.in, System.out);
+        final var server = launcher.getRemoteProxy();
+        launcher.startListening();
 
-    public String get(int index) {
-        Node it = head;
-        while (index > 0 && it != null) {
-            it = it.next;
-            index--;
-        }
+        final InitializeParams initParams = new InitializeParams();
+        server.initialize(initParams);
 
-        if (it == null) {
-            throw new IndexOutOfBoundsException("Index is out of range");
-        }
-
-        return it.data;
-    }
-
-    private static class Node {
-        final String data;
-        Node next;
-
-        Node(String data) {
-            this.data = data;
-        }
+        final var textDocumentItem = new TextDocumentItem("file:///example.txt", "plaintext", 0, "Initial content");
+        final var didOpenTextDocumentParams = new DidOpenTextDocumentParams(textDocumentItem);
+        server.getTextDocumentService().didOpen(didOpenTextDocumentParams);
     }
 }
+/*
+
+import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+
+public class SimpleClient {
+
+    public static void main(String[] args) throws IOException {
+        LanguageClient client = new LanguageClient() {
+            @Override
+            public void telemetryEvent(Object object) {
+            }
+
+            @Override
+            public void publishDiagnostics(PublishDiagnosticsParams diagnostics) {
+            }
+
+            @Override
+            public void showMessage(MessageParams messageParams) {
+                System.out.println("Message from server: " + messageParams.getMessage());
+            }
+
+            @Override
+            public CompletableFuture<MessageActionItem> showMessageRequest(ShowMessageRequestParams requestParams) {
+                return CompletableFuture.completedFuture(new MessageActionItem("OK"));
+            }
+
+            @Override
+            public void logMessage(MessageParams messageParams) {
+                System.out.println("Log from server: " + messageParams.getMessage());
+            }
+        };
+
+        Launcher<LanguageServer> launcher = LSPLauncher.createClientLauncher(client, System.in, System.out);
+        LanguageServer server = launcher.getRemoteProxy();
+        launcher.startListening();
+
+        InitializeParams initParams = new InitializeParams();
+        server.initialize(initParams);
+
+        TextDocumentItem textDocumentItem = new TextDocumentItem("file:///example.txt", "plaintext", 0, "Initial content");
+        DidOpenTextDocumentParams didOpenTextDocumentParams = new DidOpenTextDocumentParams(textDocumentItem);
+        server.getTextDocumentService().didOpen(didOpenTextDocumentParams);
+    }
+}*/

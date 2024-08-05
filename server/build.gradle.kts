@@ -9,9 +9,9 @@ plugins {
 }
 
 dependencies {
-    implementation("org.apache.commons:commons-text")
-    implementation(project(":utilities"))
     implementation(libs.lsp4j)
+    implementation("org.apache.commons:commons-text")
+    //implementation(project(":launchers"))
 }
 
 application {
