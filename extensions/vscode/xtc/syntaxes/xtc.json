@@ -1,0 +1,254 @@
+{
+  "fileTypes": ["txt"],
+  "name": "Custom Language",
+  "scopeName": "source.custom",
+  "patterns": [
+    {
+      "include": "#QualifiedName"
+    },
+    {
+      "include": "#Modifiers"
+    },
+    {
+      "include": "#Annotations"
+    },
+    {
+      "include": "#ParameterList"
+    },
+    {
+      "include": "#CompilationUnit"
+    },
+    {
+      "include": "#TypeCompositionStatement"
+    },
+    {
+      "include": "#PropertyDeclarationStatement"
+    },
+    {
+      "include": "#MethodDeclarationStatement"
+    },
+    {
+      "include": "#Statement"
+    },
+    {
+      "include": "#Expression"
+    },
+    {
+      "include": "#TypeExpression"
+    }
+  ],
+  "repository": {
+    "QualifiedName": {
+      "patterns": [
+        {
+          "name": "qualified.name",
+          "match": "\\b\\w+\\b(\\.\\b\\w+\\b)*"
+        }
+      ]
+    },
+    "Modifiers": {
+      "patterns": [
+        {
+          "include": "#Modifier"
+        },
+        {
+          "name": "modifiers",
+          "match": "(\\b(static|public|protected|private)\\b|@\\w+)"
+        }
+      ]
+    },
+    "Modifier": {
+      "patterns": [
+        {
+          "name": "keyword.control.modifier",
+          "match": "\\bstatic\\b"
+        },
+        {
+          "name": "keyword.control.access-modifier",
+          "match": "\\b(public|protected|private)\\b"
+        },
+        {
+          "name": "storage.type.annotation",
+          "match": "@\\w+"
+        }
+      ]
+    },
+    "Annotations": {
+      "patterns": [
+        {
+          "include": "#Annotation"
+        }
+      ]
+    },
+    "Annotation": {
+      "patterns": [
+        {
+          "name": "storage.type.annotation",
+          "match": "@\\w+"
+        }
+      ]
+    },
+    "ParameterList": {
+      "patterns": [
+        {
+          "name": "meta.parameter",
+          "begin": "\\(",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.parameters.begin"
+            }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.parameters.end"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#Parameter"
+            }
+          ]
+        }
+      ]
+    },
+    "Parameter": {
+      "patterns": [
+        {
+          "name": "variable.parameter",
+          "match": "\\b\\w+\\b"
+        }
+      ]
+    },
+    "CompilationUnit": {
+      "patterns": [
+        {
+          "name": "compilation.unit",
+          "begin": "(?<=\\s)import\\s+",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.control.import"
+            }
+          },
+          "end": ";",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.terminator"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#QualifiedName"
+            }
+          ]
+        }
+      ]
+    },
+    "TypeCompositionStatement": {
+      "patterns": [
+        {
+          "name": "type.composition.statement",
+          "match": "\\b(module|package|class|interface|service|const|enum|mixin)\\b\\s+\\b\\w+\\b"
+        }
+      ]
+    },
+    "PropertyDeclarationStatement": {
+      "patterns": [
+        {
+          "name": "property.declaration.statement",
+          "match": "\\b(static|public|protected|private)\\b\\s+\\b\\w+\\b\\s+\\b\\w+\\b\\s*;?"
+        }
+      ]
+    },
+    "MethodDeclarationStatement": {
+      "patterns": [
+        {
+          "name": "method.declaration.statement",
+          "begin": "\\b(static|public|protected|private)?\\b\\s*\\b\\w+\\b\\s*\\b\\w+\\b\\s*\\(",
+          "beginCaptures": {
+            "0": {
+              "name": "keyword.control.method"
+            }
+          },
+          "end": "\\)",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.parameters.end"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#Parameter"
+            }
+          ]
+        }
+      ]
+    },
+    "Statement": {
+      "patterns": [
+        {
+          "include": "#TypeCompositionStatement"
+        },
+        {
+          "include": "#PropertyDeclarationStatement"
+        },
+        {
+          "include": "#MethodDeclarationStatement"
+        },
+        {
+          "include": "#Expression"
+        },
+        {
+          "name": "keyword.control.statement",
+          "match": "\\b(break|continue|return|if|else|switch|case|default|for|while|do|try|catch|finally|throw|new|import|typedef)\\b"
+        }
+      ]
+    },
+    "Expression": {
+      "patterns": [
+        {
+          "include": "#QualifiedName"
+        },
+        {
+          "name": "keyword.operator",
+          "match": "(\\+\\+|--|\\+|-|\\*|/|%|<<|>>|>>>|&|\\^|\\||&&|\\|\\||!|=|==|!=|<=|>=|<|>|\\+=|-=|\\*=|/=|%=|&=|\\^=|\\|=|<<=|>>=|>>>=|\\?|:|->|\\.)"
+        },
+        {
+          "name": "constant.numeric",
+          "match": "\\b\\d+\\b"
+        },
+        {
+          "name": "string.quoted.double",
+          "begin": "\"",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.begin"
+            }
+          },
+          "end": "\"",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.string.end"
+            }
+          },
+          "patterns": [
+            {
+              "name": "constant.character.escape",
+              "match": "\\\\."
+            }
+          ]
+        }
+      ]
+    },
+    "TypeExpression": {
+      "patterns": [
+        {
+          "name": "type.expression",
+          "match": "\\b\\w+\\b(<\\w+>)?"
+        }
+      ]
+    }
+  },
+  "uuid": "7b8a6a82-12c6-4b3b-8489-8c92b4f5e8c3",
+  "version": "1.0.0"
+}

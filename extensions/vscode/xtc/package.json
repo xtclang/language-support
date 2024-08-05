@@ -1,0 +1,36 @@
+{
+  "name": "xtc",
+  "displayName": "XTC Language",
+  "description": "XTC Source Code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "xtc",
+      "aliases": ["Ecstasy", "xtc"],
+      "extensions": [".x"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "xtc",
+      "scopeName": "source.xtc",
+      "path": "./syntaxes/xtc.json"
+    }]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5",
+    "vscode": "^1.1.36",
+    "vscode-languageclient": "^7.0.0"
+  }
+}
