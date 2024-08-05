@@ -10,8 +10,10 @@ plugins {
 
 dependencies {
     implementation(libs.lsp4j)
-    implementation("org.apache.commons:commons-text")
-    //implementation(project(":launchers"))
+    implementation(libs.slf4j.api)
+    implementation(libs.slf4j.simple)
+    testImplementation(libs.slf4j.api)
+    testImplementation(libs.slf4j.simple)
 }
 
 application {

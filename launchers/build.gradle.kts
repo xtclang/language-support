@@ -5,13 +5,61 @@
  */
 
 plugins {
-    id("buildlogic.java-library-conventions")
+    id("buildlogic.java-application-conventions")
 }
 
+// To test the setup, first run the LanguageServerLauncher class to start the server. Then run the SimpleClient class to start the client. You should see log messages from the server indicating that a document was opened.
+
 dependencies {
- //   api(project(":client"))
-    api(project(":server"))
+    implementation(project(":server"))
     implementation(libs.lsp4j)
     implementation(libs.slf4j.api)
     implementation(libs.slf4j.simple)
+}
+
+application {
+    // Define the main class for the application.
+    // mainClass = "org.xtclang.lsp.launcher.LanguageServerLauncher"
+}
+
+fun resolveClasspath(): FileCollection {
+    return sourceSets["main"].runtimeClasspath
+}
+
+val runLauncher by tasks.registering(JavaExec::class) {
+    group = "application"
+    classpath = resolveClasspath()
+    mainClass = "org.xtclang.lsp.launcher.LanguageServerLauncher"
+}
+
+val runClient by tasks.registering(JavaExec::class) {
+    dependsOn(runLauncher)
+    group = "application"
+    classpath = resolveClasspath()
+    mainClass = "org.xtclang.lsp.client.XtcLanguageClient"
+}
+
+// TODO: Don't use this. Use the gradle-javaexec-fork if you really have to. Or hardcode it.
+val bootstrap by tasks.registering {
+    //dependsOn(runLauncher, runClient)
+    group = "application"
+    val classpath = resolveClasspath()
+    doLast {
+        val processes = listOf(
+            exec {
+                commandLine("java", "-cp", classpath.asPath, "org.xtclang.lsp.launcher.LanguageServerLauncher")
+            },
+            exec {
+                commandLine("java", "-cp", classpath.asPath, "org.xtclang.lsp.client.XtcLanguageClient")
+            }
+        )
+        // Wait for all processes to finish
+        processes.forEach {
+            println(it)
+        }
+    }
+}
+
+tasks.run.configure {
+    dependsOn(bootstrap)
 }

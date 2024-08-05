@@ -15,52 +15,62 @@ import org.eclipse.lsp4j.launch.LSPLauncher;
 
 import org.eclipse.lsp4j.services.LanguageClient;
 import org.eclipse.lsp4j.services.LanguageServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 
 // To test the setup, first run the LanguageServerLauncher class to start the server. Then run the SimpleClient class to start the client. You should see log messages from the server indicating that a document was opened.
 
-public class XtcLanguageClient {
+public final class XtcLanguageClient implements Runnable {
 
-    public static void main(String[] args) throws IOException {
-        LanguageClient client = new LanguageClient() {
-            @Override
-            public void telemetryEvent(Object object) {
-            }
+    private final Logger logger = LoggerFactory.getLogger(XtcLanguageClient.class);
+    private final LanguageClient client = new LanguageClient() {
+        @Override
+        public void telemetryEvent(final Object object) {
+        }
 
-            @Override
-            public void publishDiagnostics(PublishDiagnosticsParams diagnostics) {
-            }
+        @Override
+        public void publishDiagnostics(final PublishDiagnosticsParams diagnostics) {
+        }
 
-            @Override
-            public void showMessage(MessageParams messageParams) {
-                System.out.println("Message from server: " + messageParams.getMessage());
-            }
+        @Override
+        public void showMessage(final MessageParams messageParams) {
+            System.out.println("Message from server: " + messageParams.getMessage());
+        }
 
-            @Override
-            public CompletableFuture<MessageActionItem> showMessageRequest(ShowMessageRequestParams requestParams) {
-                return CompletableFuture.completedFuture(new MessageActionItem("OK"));
-            }
+        @Override
+        public CompletableFuture<MessageActionItem> showMessageRequest(final ShowMessageRequestParams requestParams) {
+            return CompletableFuture.completedFuture(new MessageActionItem("OK"));
+        }
 
-            @Override
-            public void logMessage(final MessageParams messageParams) {
-                System.out.println("Log from server: " + messageParams.getMessage());
-            }
-        };
+        @Override
+        public void logMessage(final MessageParams messageParams) {
+            System.out.println("Log from server: " + messageParams.getMessage());
+        }
+    };
 
-        final Launcher<LanguageServer> launcher = LSPLauncher.createClientLauncher(client, System.in, System.out);
+    @Override
+    public void run() {
+        final var launcher = LSPLauncher.createClientLauncher(client, System.in, System.out);
         final var server = launcher.getRemoteProxy();
         launcher.startListening();
+        logger.info("Client is listening...");
 
-        final InitializeParams initParams = new InitializeParams();
+        final var initParams = new InitializeParams();
         server.initialize(initParams);
+        logger.info("Parameters initialized: {}", initParams);
 
         final var textDocumentItem = new TextDocumentItem("file:///example.txt", "plaintext", 0, "Initial content");
         final var didOpenTextDocumentParams = new DidOpenTextDocumentParams(textDocumentItem);
         server.getTextDocumentService().didOpen(didOpenTextDocumentParams);
     }
+
+    public static void main(final String[] args) {
+        new XtcLanguageClient().run();
+    }
 }
+
 /*
 
 import java.io.IOException;

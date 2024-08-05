@@ -5,11 +5,18 @@
  */
 
 plugins {
-    id("buildlogic.java-library-conventions")
+    id("buildlogic.java-application-conventions")
 }
 
 dependencies {
     implementation(libs.lsp4j)
+    implementation(libs.slf4j.api)
+    implementation(libs.slf4j.simple)
     testImplementation(libs.slf4j.api)
     testImplementation(libs.slf4j.simple)
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = "org.xtclang.lsp.client.XtcLanguageClient"
 }

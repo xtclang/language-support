@@ -17,15 +17,15 @@ public final class LanguageServerLauncher implements Runnable {
         this.launcher = LSPLauncher.createServerLauncher(server, System.in, System.out);
     }
 
-    public static void main(final String[] args) {
-        new LanguageServerLauncher().run();
-    }
-
     @Override
     public void run() {
         logger.info("Starting language server...");
         server.connect(launcher.getRemoteProxy());
         launcher.startListening();
         logger.info("Listening.");
+    }
+
+    public static void main(final String[] args) {
+        new LanguageServerLauncher().run();
     }
 }
