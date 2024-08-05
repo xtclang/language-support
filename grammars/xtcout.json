@@ -1,0 +1,293 @@
+{
+    "scopeName": "source.your-language",
+    "patterns": [
+        {
+            "include": "#\""
+        },
+        {
+            "include": "#name \""
+        },
+        {
+            "include": "#\"(\" optionaldeclarationlist \",\" optionaldeclaration \")\" \""
+        },
+        {
+            "include": "#\"*"
+        },
+        {
+            "include": "#\"/"
+        },
+        {
+            "include": "#\"%"
+        },
+        {
+            "include": "#\"+"
+        },
+        {
+            "include": "#\"-"
+        },
+        {
+            "include": "#\"<<"
+        },
+        {
+            "include": "#\">>"
+        },
+        {
+            "include": "#\">>>"
+        },
+        {
+            "include": "#\"&"
+        },
+        {
+            "include": "#\"&&"
+        },
+        {
+            "include": "#\"|"
+        },
+        {
+            "include": "#\"||"
+        },
+        {
+            "include": "#\"^"
+        },
+        {
+            "include": "#\"?:"
+        },
+        {
+            "include": "#\":"
+        },
+        {
+            "include": "#\"?"
+        },
+        {
+            "include": "#optionaldeclaration \""
+        },
+        {
+            "include": "#equalityexpression \""
+        },
+        {
+            "include": "#equalityexpression \"!"
+        },
+        {
+            "include": "#assignmentexpression \"<"
+        },
+        {
+            "include": "#relationalexpression \"<"
+        },
+        {
+            "include": "#relationalexpression \">"
+        },
+        {
+            "include": "#expression \""
+        }
+    ],
+    "repository": {
+        "\"": {
+            "patterns": [
+                {
+                    "match": "\\b\"\\b",
+                    "name": "meta.\".your-language"
+                }
+            ]
+        },
+        "name \"": {
+            "patterns": [
+                {
+                    "match": "\\bName \"\\b",
+                    "name": "meta.name \".your-language"
+                }
+            ]
+        },
+        "\"(\" optionaldeclarationlist \",\" optionaldeclaration \")\" \"": {
+            "patterns": [
+                {
+                    "match": "\\b\"(\" OptionalDeclarationList \",\" OptionalDeclaration \")\" \"\\b",
+                    "name": "meta.\"(\" optionaldeclarationlist \",\" optionaldeclaration \")\" \".your-language"
+                }
+            ]
+        },
+        "\"*": {
+            "patterns": [
+                {
+                    "match": "\\b\"*\\b",
+                    "name": "meta.\"*.your-language"
+                }
+            ]
+        },
+        "\"/": {
+            "patterns": [
+                {
+                    "match": "\\b\"/\\b",
+                    "name": "meta.\"/.your-language"
+                }
+            ]
+        },
+        "\"%": {
+            "patterns": [
+                {
+                    "match": "\\b\"%\\b",
+                    "name": "meta.\"%.your-language"
+                }
+            ]
+        },
+        "\"+": {
+            "patterns": [
+                {
+                    "match": "\\b\"+\\b",
+                    "name": "meta.\"+.your-language"
+                }
+            ]
+        },
+        "\"-": {
+            "patterns": [
+                {
+                    "match": "\\b\"-\\b",
+                    "name": "meta.\"-.your-language"
+                }
+            ]
+        },
+        "\"<<": {
+            "patterns": [
+                {
+                    "match": "\\b\"<<\\b",
+                    "name": "meta.\"<<.your-language"
+                }
+            ]
+        },
+        "\">>": {
+            "patterns": [
+                {
+                    "match": "\\b\">>\\b",
+                    "name": "meta.\">>.your-language"
+                }
+            ]
+        },
+        "\">>>": {
+            "patterns": [
+                {
+                    "match": "\\b\">>>\\b",
+                    "name": "meta.\">>>.your-language"
+                }
+            ]
+        },
+        "\"&": {
+            "patterns": [
+                {
+                    "match": "\\b\"&\\b",
+                    "name": "meta.\"&.your-language"
+                }
+            ]
+        },
+        "\"&&": {
+            "patterns": [
+                {
+                    "match": "\\b\"&&\\b",
+                    "name": "meta.\"&&.your-language"
+                }
+            ]
+        },
+        "\"|": {
+            "patterns": [
+                {
+                    "match": "\\b\"|\\b",
+                    "name": "meta.\"|.your-language"
+                }
+            ]
+        },
+        "\"||": {
+            "patterns": [
+                {
+                    "match": "\\b\"||\\b",
+                    "name": "meta.\"||.your-language"
+                }
+            ]
+        },
+        "\"^": {
+            "patterns": [
+                {
+                    "match": "\\b\"^\\b",
+                    "name": "meta.\"^.your-language"
+                }
+            ]
+        },
+        "\"?:": {
+            "patterns": [
+                {
+                    "match": "\\b\"?:\\b",
+                    "name": "meta.\"?:.your-language"
+                }
+            ]
+        },
+        "\":": {
+            "patterns": [
+                {
+                    "match": "\\b\":\\b",
+                    "name": "meta.\":.your-language"
+                }
+            ]
+        },
+        "\"?": {
+            "patterns": [
+                {
+                    "match": "\\b\"?\\b",
+                    "name": "meta.\"?.your-language"
+                }
+            ]
+        },
+        "optionaldeclaration \"": {
+            "patterns": [
+                {
+                    "match": "\\bOptionalDeclaration \"\\b",
+                    "name": "meta.optionaldeclaration \".your-language"
+                }
+            ]
+        },
+        "equalityexpression \"": {
+            "patterns": [
+                {
+                    "match": "\\bEqualityExpression \"\\b",
+                    "name": "meta.equalityexpression \".your-language"
+                }
+            ]
+        },
+        "equalityexpression \"!": {
+            "patterns": [
+                {
+                    "match": "\\bEqualityExpression \"!\\b",
+                    "name": "meta.equalityexpression \"!.your-language"
+                }
+            ]
+        },
+        "assignmentexpression \"<": {
+            "patterns": [
+                {
+                    "match": "\\bAssignmentExpression \"<\\b",
+                    "name": "meta.assignmentexpression \"<.your-language"
+                }
+            ]
+        },
+        "relationalexpression \"<": {
+            "patterns": [
+                {
+                    "match": "\\bRelationalExpression \"<\\b",
+                    "name": "meta.relationalexpression \"<.your-language"
+                }
+            ]
+        },
+        "relationalexpression \">": {
+            "patterns": [
+                {
+                    "match": "\\bRelationalExpression \">\\b",
+                    "name": "meta.relationalexpression \">.your-language"
+                }
+            ]
+        },
+        "expression \"": {
+            "patterns": [
+                {
+                    "match": "\\bExpression \"\\b",
+                    "name": "meta.expression \".your-language"
+                }
+            ]
+        }
+    }
+}

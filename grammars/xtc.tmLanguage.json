@@ -1,0 +1,275 @@
+{
+    "scopeName": "source.xtc",
+    "fileTypes": [
+        ".xtc"
+    ],
+    "uuid": "12345678-1234-1234-1234-123456789012",
+    "patterns": [
+        {
+            "include": "#\""
+        },
+        {
+            "include": "#name \""
+        },
+        {
+            "include": "#\"(\" optionaldeclarationlist \",\" optionaldeclaration \")\" \""
+        },
+        {
+            "include": "#\"*"
+        },
+        {
+            "include": "#\"/"
+        },
+        {
+            "include": "#\"%"
+        },
+        {
+            "include": "#\"+"
+        },
+        {
+            "include": "#\"_"
+        },
+        {
+            "include": "#\"<<"
+        },
+        {
+            "include": "#\">>"
+        },
+        {
+            "include": "#\">>>"
+        },
+        {
+            "include": "#\"&"
+        },
+        {
+            "include": "#\"&&"
+        },
+        {
+            "include": "#\"|"
+        },
+        {
+            "include": "#\"||"
+        },
+        {
+            "include": "#\"^"
+        },
+        {
+            "include": "#\"?"
+        },
+        {
+            "include": "#optionaldeclaration \""
+        },
+        {
+            "include": "#equalityexpression \""
+        },
+        {
+            "include": "#equalityexpression \"!"
+        },
+        {
+            "include": "#assignmentexpression \"<"
+        },
+        {
+            "include": "#relationalexpression \"<"
+        },
+        {
+            "include": "#relationalexpression \">"
+        },
+        {
+            "include": "#expression \""
+        }
+    ],
+    "repository": {
+        "\"": {
+            "patterns": [
+                {
+                    "match": ":'",
+                    "name": "meta.\".xtc"
+                }
+            ]
+        },
+        "name \"": {
+            "patterns": [
+                {
+                    "match": "\\bTypeParameterList\\b<\\bTypeParameters\\b>\\bTypeParametersTypeParameterTypeParameters\\b,\\bTypeParameterTypeParameterNameTypeParameterConstraint-optTypeParameterConstraint\\bextends\\bExtendedTypeExpressionTypeParameterTypeList\\b<\\bTypeExpressionList\\b>\\bTypeExpressionListTypeExpressionListElementTypeExpressionList\\b,\\bTypeExpressionListElementTypeExpressionListElementTypeParameterTypeListExtendedTypeExpressionCompilationUnitImportStatements-optTypeCompositionStatementImportStatementsImportStatementImportStatementsImportStatementTypeCompositionStatementModifiers-optCategoryQualifiedNameTypeParameterList-optParameterList-optCompositions-optTypeCompositionBodyCategory\\bmodule'\\bpackage\\b\\bclass\\b\\binterface\\b\\bservice\\b\\bconst\\b\\benum\\b\\bmixin\\bCompositionsConditionalCompositionCompositionsConditionalCompositionConditionalCompositionIfCompositionCompositionIfComposition\\bif\\b\\b(\\bExpression\\b)\\b\\b(\\bCompositions\\b)*\\bElseComposition-optElseComposition\\belse\\bIfComposition\\belse\\b\\b(\\bCompositions\\b)*\\bComposition\\bextends\\bExtendsList\\bimplements\\bImplementsList\\bdelegates\\bDelegatesList\\bincorporates\\bIncorporatesList\\binto\\bAnyTypeExpression\\bimport\\bImportModifier-optQualifiedNameVersionRequirement-optResourceProvider-opt\\bdefault\\b\\b(\\bExpression\\b)\\bExtendsListExtendsSingleExtendsList\\b,\\bExtendsSingleExtendsSingleTypeExpressionArgumentList-optImplementsListImplementsSingleImplementsList\\b,\\bImplementsSingleImplementsSingleExtendedTypeExpressionDelegatesListDelegatesSingleDelegatesList\\b,\\bDelegatesSingleDelegatesSingleAnyTypeExpression\\b(\\bExpression\\b)\\bIncorporatesListIncorporatesSingleIncorporatesList\\b,\\bIncorporatesSingleIncorporatesSingle\\bconditional\\bQualifiedNameTypeParameterListArgumentList-optTypeExpressionArgumentList-optImportModifier\\bembedded\\b\\brequired\\b\\bdesired\\b\\boptional\\bVersionRequirementVersionVersionOverrides-optVersionOverridesVersionOverrideVersionOverrides\\b,\\bVersionOverrideVersionOverrideVersionOverrideVerbVersionsVersionOverrideVerb\\ballow\\b\\bavoid\\b\\bprefer\\bVersionsVersionVersions\\b,\\bVersionVersionVersionLiteralResourceProviderResourceList-opt\\busing\\bNamedTypeExpressionResourceList\\binject\\b\\b(\\bResourceListContents-opt\\b)\\bResourceListContentsResources\\b,\\b-optResourcesResourceResources\\b,\\bResourceResourceTypeExpressionResourceFinishResourceFinishName\\b_\\bTypeCompositionBody\\b(\\bEnumBody\\b)*\\b\\b(\\bTypeCompositionComponents\\b)*\\b\\b;\\bEnumBodyEnumsEnumBodyFinish-optEnumsEnumEnums\\b,\\bEnumEnumBodyFinish\\b;\\bTypeCompositionComponentsEnumAnnotations-optNameTypeParameterTypeList-optArgumentList-optTypeCompositionBody-optTypeCompositionComponentsConditionalTypeCompositionComponentTypeCompositionComponentsConditionalTypeCompositionComponentConditionalTypeCompositionComponentIfTypeCompositionComponentTypeCompositionComponentIfTypeCompositionComponent\\bif\\b\\b(\\bExpression\\b)\\b\\b(\\bTypeCompositionComponents\\b)*\\bElseTypeCompositionComponent-optElseTypeCompositionComponent\\belse\\bIfTypeCompositionComponent\\belse\\b\\b(\\bTypeCompositionComponents\\b)*\\bTypeCompositionComponentAccessModifier-optTypeDefStatementImportStatementTypeCompositionStatementPropertyDeclarationStatementMethodDeclarationStatementPropertyDeclarationStatementPropertyModifiers-optTypeExpressionNamePropertyDeclarationFinishPropertyModifiersPropertyModifierPropertyModifiersPropertyModifiersPropertyModifier\\bstatic\\bPropertyAccessModifierAnnotationPropertyAccessModifierAccessModifierAccessModifier\\b/\\bAccessModifierPropertyDeclarationFinish\\b;\\bPropertyDeclarationInitialValue\\b.\\bNameParametersMethodBodyPropertyDeclarationInitialValue-optTypeCompositionBodyPropertyDeclarationInitialValue-optPropertyDeclarationInitialValue",
+                    "name": "meta.name \".xtc"
+                }
+            ]
+        },
+        "\"(\" optionaldeclarationlist \",\" optionaldeclaration \")\" \"": {
+            "patterns": [
+                {
+                    "match": "\\bExpressionExpressionUsingStatement\\busing'\\b(\\bUsingResources\\b)\\bStatementBlockTypeDefStatement\\btypedef\\bAnyTypeExpression\\bas\\bName\\b;\\bExpressionElseExpressionElseExpressionTernaryExpressionTernaryExpression\\b:\\bElseExpressionTernaryExpressionOrExpressionOrExpressionWhitespace\\b?\\bTernaryExpression\\b:\\bTernaryExpressionOrExpressionAndExpressionOrExpression\\b||\\bAndExpressionOrExpression\\b^^\\bAndExpressionAndExpressionEqualityExpressionAndExpression\\b&&\\bEqualityExpressionEqualityExpressionRelationalExpression",
+                    "name": "meta.\"(\" optionaldeclarationlist \",\" optionaldeclaration \")\" \".xtc"
+                }
+            ]
+        },
+        "\"*": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"*.xtc"
+                }
+            ]
+        },
+        "\"/": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"/.xtc"
+                }
+            ]
+        },
+        "\"%": {
+            "patterns": [
+                {
+                    "match": "'\u00b4",
+                    "name": "meta.\"%.xtc"
+                }
+            ]
+        },
+        "\"+": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"+.xtc"
+                }
+            ]
+        },
+        "\"_": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"_.xtc"
+                }
+            ]
+        },
+        "\"<<": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"<<.xtc"
+                }
+            ]
+        },
+        "\">>": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\">>.xtc"
+                }
+            ]
+        },
+        "\">>>": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\">>>.xtc"
+                }
+            ]
+        },
+        "\"&": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"&.xtc"
+                }
+            ]
+        },
+        "\"&&": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"&&.xtc"
+                }
+            ]
+        },
+        "\"|": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"|.xtc"
+                }
+            ]
+        },
+        "\"||": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"||.xtc"
+                }
+            ]
+        },
+        "\"^": {
+            "patterns": [
+                {
+                    "match": "'",
+                    "name": "meta.\"^.xtc"
+                }
+            ]
+        },
+        "\"?": {
+            "patterns": [
+                {
+                    "match": "\\bImportStatement\\bimport\\bQualifiedNameImportFinishImportFinish\\b;'\\bas\\bName\\b;\\bNoWhitespace\\b.*\\b\\b;\\bReturnStatement\\breturn\\bReturnValue-opt\\b;\\bReturnValueTupleLiteralExpressionListSwitchStatement\\bswitch\\b\\b(\\bSwitchCondition\\b)\\b\\b(\\bSwitchBlocks\\b)*\\bSwitchConditionSwitchConditionExpressionSwitchCondition\\b,\\bSwitchConditionExpressionSwitchConditionExpressionVariableInitializerExpressionSwitchBlocksSwitchBlockSwitchBlocksSwitchBlockSwitchBlockSwitchLabelsStatementsSwitchBlockFinish-optSwitchLabelsSwitchLabelSwitchLabelsSwitchLabelSwitchLabel\\bcase\\bCaseOptionList\\b:\\b\\bdefault\\b\\b:\\bSwitchBlockFinish:BreakStatementContinueStatementBreakStatement:\\bbreak\\bName-opt\\b;\\bContinueStatement:\\bcontinue\\bName-opt\\b;\\bCaseOptionList:CaseOptionCaseOptionList\\b,\\bCaseOptionCaseOption:\\b(\\bCaseExpressionList\\b,\\bCaseExpression\\b)\\bSafeCaseExpressionCaseExpressionList:CaseExpressionCaseExpressionList\\b,\\bCaseExpressionCaseExpression:\\b_\\bExpressionSafeCaseExpression:\\b_\\bTernaryExpressionTryStatement\\btry\\bTryResources-optStatementBlockTryFinishTryResources\\b(\\bVariableInitializationList\\b)\\bTryFinishCatchesCatches-opt\\bfinally\\bStatementBlockCatchesCatchCatchesCatchCatch\\bcatch\\b\\b(\\bTypeExpressionName\\b)\\bStatementBlockUsingResourcesUsingResourceUsingResources\\b,\\bUsingResourceUsingResource",
+                    "name": "meta.\"?.xtc"
+                }
+            ]
+        },
+        "optionaldeclaration \"": {
+            "patterns": [
+                {
+                    "match": "'Expression",
+                    "name": "meta.optionaldeclaration \".xtc"
+                }
+            ]
+        },
+        "equalityexpression \"": {
+            "patterns": [
+                {
+                    "match": "='RelationalExpression",
+                    "name": "meta.equalityexpression \".xtc"
+                }
+            ]
+        },
+        "equalityexpression \"!": {
+            "patterns": [
+                {
+                    "match": "'RelationalExpressionRelationalExpressionAssignmentExpression",
+                    "name": "meta.equalityexpression \"!.xtc"
+                }
+            ]
+        },
+        "assignmentexpression \"<": {
+            "patterns": [
+                {
+                    "match": ">\\bAssignmentExpressionRelationalExpression\\b<'AssignmentExpression",
+                    "name": "meta.assignmentexpression \"<.xtc"
+                }
+            ]
+        },
+        "relationalexpression \"<": {
+            "patterns": [
+                {
+                    "match": "\\bAssignmentExpressionRelationalExpression\\b>'AssignmentExpression",
+                    "name": "meta.relationalexpression \"<.xtc"
+                }
+            ]
+        },
+        "relationalexpression \">": {
+            "patterns": [
+                {
+                    "match": "\\bAssignmentExpressionAssignmentExpressionRangeExpressionRangeExpression\\b<-\\bAssignmentExpressionRangeExpressionBitwiseExpressionRangeExpression\\b..\\bBitwiseExpressionBitwiseExpressionAdditiveExpressionBitwiseExpression\\b<<\\bAdditiveExpressionBitwiseExpression\\b>>\\bAdditiveExpressionBitwiseExpression\\b>>>\\bAdditiveExpressionBitwiseExpression\\b&\\bAdditiveExpressionBitwiseExpression\\b^\\bAdditiveExpressionBitwiseExpression\\b|\\bAdditiveExpressionAdditiveExpressionMultiplicativeExpressionAdditiveExpression\\b+\\bMultiplicativeExpressionAdditiveExpression\\b-\\bMultiplicativeExpressionMultiplicativeExpressionElvisExpressionMultiplicativeExpression\\b*\\bElvisExpressionMultiplicativeExpression\\b/\\bElvisExpressionMultiplicativeExpression\\b%\\bElvisExpressionMultiplicativeExpression\\b/%\\bElvisExpressionElvisExpressionPrefixExpressionPrefixExpression\\b?:\\bElvisExpressionPrefixExpressionPostfixExpression\\b++\\bPrefixExpression\\b--\\bPrefixExpression\\b+\\bPrefixExpression\\b-\\bPrefixExpression\\b!\\bPrefixExpression\\b~\\bPrefixExpressionPostfixExpressionPrimaryExpressionPostfixExpression\\b++\\bPostfixExpression\\b--\\bPostfixExpression\\b(\\bArguments-opt\\b)\\bPostfixExpressionArrayDimsPostfixExpressionArrayIndexesPostfixExpressionNoWhitespace\\b?\\bPostfixExpression\\b.'\\b&\\b-optDotNameFinishPostfixExpression\\b.new\\bNewFinishPostfixExpression\\b.as\\b\\b(\\bAnyTypeExpression\\b)\\bPostfixExpression\\b.is\\b\\b(\\bAnyTypeExpression\\b)\\bArrayDims\\b(\\bDimIndicators-opt\\b)?\\bDimIndicatorsDimIndicatorDimIndicators\\b,\\bDimIndicatorDimIndicator\\b?\\bArrayIndexes\\b(\\bExpressionList\\b)?\\bExpressionListExpressionExpressionList\\b,\\bExpressionDotNameFinishNameTypeParameterTypeList-opt\\bdefault\\bNewFinishTypeExpressionNewArgumentsAnonClassBody-optArgumentListNewArgumentsArrayIndexesArgumentList-optArgumentListPrimaryExpression\\b(\\bExpression\\b)\\b\\bnew\\bNewFinish\\b&\\b-opt\\bconstruct\\b-optQualifiedNameTypeParameterTypeList-optStatementExpressionSwitchExpressionLambdaExpression\\b_\\bLiteralAnonClassBody\\b(\\bTypeCompositionComponents\\b)*\\bStatementExpressionStatementBlock\\bthrow\\bTernaryExpression\\bTODO\\bTodoFinish-opt\\bassert\\bSwitchExpression\\bswitch\\b\\b(\\bSwitchCondition-opt\\b)\\b\\b(\\bSwitchExpressionBlocks\\b)*\\bSwitchExpressionBlocksSwitchExpressionBlockSwitchExpressionBlocksSwitchExpressionBlockSwitchExpressionBlockSwitchLabelsExpressionList\\b;\\bLambdaExpressionLambdaInputs\\b->\\bLambdaBodyLambdaInputsLambdaParameterNameLambdaInferredListLambdaParameterListLambdaInferredList\\b(\\bLambdaParameterNames\\b)\\bLambdaParameterNamesLambdaParameterNameLambdaParameterNames\\b,\\bLambdaParameterNameLambdaParameterList\\b(\\bLambdaParameters\\b)\\bLambdaParametersLambdaParameterLambdaParameters\\b,\\bLambdaParameterLambdaParameterTypeExpressionLambdaParameterNameLambdaParameterName\\b_\\bNameLambdaBodyExpressionStatementBlockTodoFinishInputCharacter-not-\\b(\\bInputCharactersLineTerminatorNoWhitespace\\b(\\bExpression-opt\\b)\\bLiteralTypedNumericLiteralIntLiteralFPDecimalLiteralFPBinaryLiteralCharLiteralStringLiteralBinaryLiteralTupleLiteralListLiteralMapLiteralVersionLiteralDateLiteralTimeOfDayLiteralTimeLiteralTimeZoneLiteralDurationLiteralPathLiteralFileLiteralDirectoryLiteralFileStoreLiteralTypedNumericLiteral:IntTypeName\\b:\\bIntLiteralFPTypeName\\b:\\bFPLiteralFPLiteral:IntLiteralFPDecimalLiteralFPBinaryLiteralIntTypeName:\\bInt\\b\\bInt8\\b\\bInt16\\b\\bInt32\\b\\bInt64\\b\\bInt128\\b\\bIntN\\b\\bByte\\b\\bUInt\\b\\bUInt8\\b\\bUInt16\\b\\bUInt32\\b\\bUInt64\\b\\bUInt128\\b\\bUIntN\\bFPTypeName:\\bDec\\b\\bDec32\\b\\bDec64\\b\\bDec128\\b\\bDecN\\b\\bFloat8e4\\b\\bFloat8e5\\b\\bBFloat16\\b\\bFloat16\\b\\bFloat32\\b\\bFloat64\\b\\bFloat128\\b\\bFloatN\\bStringLiteral''\\bCharacterString-opt\\b''\\b$\\b\\bCharacterString-opt\\b''\\b\\|\\bFreeformLiteral\\b$|\\bFreeformLiteral\\b$\\bNoWhitespaceFileFreeformLiteralFreeformCharsLineTerminatorFreeformLines-optFreeformLinesFreeformLineFreeformLinesFreeformLineFreeformLineWhitespace-opt\\b|\\bFreeformCharsLineTerminatorFreeformCharsFreeformCharFreeformCharsFreeformCharFreeformCharInputCharacterexceptLineTerminatorBinaryLiteral\\b#\\bNoWhitespaceHexits\\b#|\\bFreeformLiteral\\b#\\bNoWhitespaceFileTupleLiteral\\b(\\bExpressionList\\b,\\bExpression\\b)\\bTypeExpressionNoWhitespace\\b:\\b\\b(\\bExpressionList-opt\\b)\\bCollectionLiteral\\b(\\bExpressionList-opt\\b)?\\bTypeExpressionNoWhitespace\\b:\\b\\b(\\bExpressionList-opt\\b)?\\bMapLiteral\\b(\\bEntries-opt\\b)?\\bTypeExpressionNoWhitespace\\b:\\b\\b(\\bEntries-opt\\b)?\\bEntriesEntryEntries\\b,\\bEntryEntry",
+                    "name": "meta.relationalexpression \">.xtc"
+                }
+            ]
+        },
+        "expression \"": {
+            "patterns": [
+                {
+                    "match": "\\bExpressionVersionLiteral\\bVersion:\\bNoWhitespaceVersionString\\bv:\\bNoWhitespaceVersionStringVersionStringNonGASuffixVersionNumbersNoWhitespaceVersionFinish-optNoWhitespaceBuild-optVersionNumbersDigitsNoUnderscoresVersionNumbersNoWhitespace\\b.\\bNoWhitespaceDigitsNoUnderscoresVersionFinish:\\b-\\bNoWhitespaceNonGASuffix\\b.\\bNoWhitespaceNonGASuffixNonGASuffixNonGASuffixNonGAPrefixNoWhitespaceNonGAVersion-optNonGAVersion\\b-\\bNoWhitespaceDigitsNoUnderscores\\b.\\bNoWhitespaceDigitsNoUnderscoresDigitsNoUnderscoresBuild\\b+\\bNoWhitespaceBuildCharsBuildCharsBuildCharBuildCharsBuildCharBuildChar\\b0\\b..\\b9'\\bA\\b..\\bZ\\b\\ba\\b..\\bz\\b\\b-\\b\\b.\\bNonGAPrefix:\\bdev\\b\\bci\\b\\bqc\\b\\balpha\\b\\bbeta\\b\\brc\\bDateLiteral\\bDate:\\bDigitDigitDigitDigit\\b-\\bDigitDigit\\b-\\bDigitDigitTimeOfDayLiteral\\bTimeOfDay:\\bDigitDigit\\b:\\bDigitDigitSeconds-optSeconds\\b:\\bDigitDigitSecondsFraction-optSecondsFraction\\b.\\bNoWhitespaceDigitsTimeLiteral\\bTime:\\bDigitDigitDigitDigit\\b-\\bDigitDigit\\b-\\bDigitDigit\\bT\\bDigitDigit\\b:\\bDigitDigitSeconds-optTimeZone-optTimeZoneLiteral\\bTimeZone:\\bNoWhitespaceTimeZoneTimeZone\\bZ\\b\\b+\\bNoWhitespaceDigitNoWhitespaceDigitNoWhitespaceMinutesOffset-opt\\b-\\bNoWhitespaceDigitNoWhitespaceDigitNoWhitespaceMinutesOffset-optMinutesOffset\\b:\\bNoWhitespaceDigitNoWhitespaceDigitDurationLiteral\\bDuration:P\\bYearsDuration-optMonthsDuration-optDaysDuration-optTimeDuration-optTimeDuration\\bT\\bNoWhitespaceHoursDuration-optNoWhitespaceMinutesDuration-optNoWhitespaceSecondsDuration-optYearsDurationDigitsNoUnderscoresNoWhitespace\\bY\\bMonthsDurationDigitsNoUnderscoresNoWhitespace\\bM\\bDaysDurationDigitsNoUnderscoresNoWhitespace\\bD\\bHoursDurationDigitsNoUnderscoresNoWhitespace\\bH\\bMinutesDurationDigitsNoUnderscoresNoWhitespace\\bM\\bSecondsDurationDigitsNoUnderscoresNoWhitespace\\bS\\bPathLiteral\\bPath:\\bNoWhitespaceDirNoWhitespacePathName-optFileLiteral\\bFile:\\b-optNoWhitespaceFileDirectoryLiteral\\bDirectory:\\b-optNoWhitespaceDirFileStoreLiteral\\bFileStore:\\bNoWhitespaceDirNoWhitespacePathName-optFileDirNoWhitespacePathNameDir\\b/\\bNoWhitespaceDirElements-opt\\b./\\bNoWhitespaceDirElements-opt\\b../\\bNoWhitespaceDirElements-optDirElementsDirElementDirElementsNoWhitespaceDirElementDirElement\\b../\\bPathNameNoWhitespace\\b/\\bPathName\\b.\\b-optNoWhitespacePathNamePartsPathNamePartsPathNamePartPathNamePartsNoWhitespacePathNameSpecialNoWhitespacePathNamePartPathNamePartIdentifierTrailsPathNameSpecial\\b.\\b\\b-\\bIdentifierTrailsIdentifierTrailIdentifierTrailsIdentifierTrailIdentifierTrailTypeExpressionIntersectingTypeExpressionExtendedTypeExpressionExtendedIntersectingTypeExpressionAnyTypeExpressionExtendedTypeExpressionIntersectingTypeExpressionUnionedTypeExpressionIntersectingTypeExpression\\b+\\bUnionedTypeExpressionIntersectingTypeExpression\\b-\\bUnionedTypeExpressionExtendedIntersectingTypeExpressionExtendedUnionedTypeExpressionExtendedIntersectingTypeExpression\\b+\\bExtendedUnionedTypeExpressionExtendedIntersectingTypeExpression\\b-\\bExtendedUnionedTypeExpressionUnionedTypeExpressionPrefixTypeExpressionUnionedTypeExpression\\b|\\bPrefixTypeExpressionExtendedUnionedTypeExpressionExtendedPrefixTypeExpressionExtendedUnionedTypeExpression\\b|\\bExtendedPrefixTypeExpressionPrefixTypeExpression\\bimmutable\\b-optAnnotations-optPostfixTypeExpressionExtendedPrefixTypeExpression\\bimmutable\\b-optTypeAccessModifier-optAnnotations-optExtendedPostfixTypeExpressionTypeAccessModifier\\bstruct\\bAccessModifierPostfixTypeExpressionPrimaryTypeExpressionPostfixTypeExpressionNoWhitespace\\b?\\bPostfixTypeExpressionArrayDimsPostfixTypeExpressionArrayIndexesExtendedPostfixTypeExpressionExtendedPrimaryTypeExpressionExtendedPostfixTypeExpressionNoWhitespace\\b?\\bExtendedPostfixTypeExpressionArrayDimsExtendedPostfixTypeExpressionArrayIndexesPrimaryTypeExpression\\b(\\bExtendedTypeExpression\\b)\\bNamedTypeExpressionFunctionTypeExpressionExtendedPrimaryTypeExpression\\b(\\bExtendedTypeExpression\\b)\\bNamedTypeExpressionFunctionTypeExpressionAnonTypeExpression\\bconst\\b\\benum\\b\\bmodule\\b\\bpackage\\b\\bservice\\b\\bclass\\bNamedTypeExpressionNamedTypeExpressionPartNamedTypeExpression\\b.\\bAnnotations-optNamedTypeExpressionPartNamedTypeExpressionPartQualifiedNameNoAutoNarrowModifier-optTypeParameterTypeList-optTypeValueSet-optNoAutoNarrowModifierNoWhitespace\\b!\\bTypeValueSet\\b(\\bTypeValueList\\b)*\\bTypeValueListTypeValueTypeValueList\\b,\\bTypeValueTypeValueExpressionAnonTypeExpression\\b(\\bNameOrSignatureList\\b;\\b\\b)*\\bNameOrSignatureListNameOrSignatureNameOrSignatureList\\b;\\bNameOrSignatureNameOrSignatureNamePropertyModifiers-optTypeExpressionNameMethodModifiers-optTypeParameterList-optMethodIdentityParameterListFunctionTypeExpression\\bfunction\\b\\bconditional\\b-optReturnListName-opt\\b(\\bTypeExpressionList-opt\\b)\\b",
+                    "name": "meta.expression \".xtc"
+                }
+            ]
+        }
+    }
+}
