@@ -1,17 +1,19 @@
 import re
 
-def expand_ranges(production):
-    # Expand ranges like "0".."9" to "0" | "1" | ... | "9"
+def expand_ranges(production, allow_ranges=False):
     def range_expansion(match):
         start, end = match.group(1), match.group(2)
         return ' | '.join([f'"{chr(c)}"' for c in range(ord(start), ord(end) + 1)])
-
+    assert not allow_ranges
     return re.sub(r'"(.)"\.\."(.)"', range_expansion, production)
 
 def convert_to_bnf_with_optional_and_transform_left_recursion(content):
-    # Strip leading and trailing whitespace from the entire content
+    # strip whitespace
     content = content.strip()
     lines = [line.strip() for line in content.split('\n')]
+
+    # strip comments
+    lines = [line for line in lines if not line.startswith('#')]
 
     rules = []
     current_rule = []
@@ -27,18 +29,6 @@ def convert_to_bnf_with_optional_and_transform_left_recursion(content):
     if current_rule:
         rules.append('\n'.join(current_rule))
 
-    # Add the definition for Name
-    #name_rules = [
-    #    'Name ::= <Letter> (<Letter> | <Digit> | "_")*',
-    #    '<Letter> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "_"',
-    #    '<Digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"'
-    #]
-    #print(rules)
-
-    # Add name rules at the beginning
-    #rules = name_rules + rules
-
-    # Store rules in a dictionary
     rule_dict = {}
     for rule in rules:
         lines = rule.split('\n')
@@ -54,11 +44,9 @@ def convert_to_bnf_with_optional_and_transform_left_recursion(content):
         left_recursive = []
         non_recursive = []
         for production in productions:
-            # Handle optional elements marked with -opt
-            production = re.sub(r'(\w+)-opt', r'[\1]', production)
-            # Handle optional literals marked with -opt
+            production = production.strip()
+            production = re.sub(r'(\w+)-opt', r'<\1>', production)
             production = re.sub(r'("[^"]*")-opt', r'[\1]', production)
-            # Expand ranges
             production = expand_ranges(production)
 
             if production.startswith(header):
@@ -78,17 +66,18 @@ def convert_to_bnf_with_optional_and_transform_left_recursion(content):
 
     return '\n'.join(bnf_rules)
 
-# Read the file content
-file_path = 'xtc.ebnf'
-with open(file_path, 'r') as file:
-    content = file.read()
+def convert_ebnf_to_bnf(input_file_path, output_file_path):
+    with open(input_file_path, 'r') as file:
+        content = file.read()
+    bnf_content = convert_to_bnf_with_optional_and_transform_left_recursion(content)
+    with open(output_file_path, 'w') as file:
+        file.write(bnf_content)
 
-# Convert the EBNF content to BNF with optional handling and transform left recursion
-bnf_content_with_optional_and_transformed = convert_to_bnf_with_optional_and_transform_left_recursion(content)
+# Corrected paths for input and output files
+input_file_path = 'xtc.ebnf'
+output_file_path = 'converted_bnf.bnf'
 
-# Save the converted BNF content to a new file
-bnf_file_path_with_optional_and_transformed = 'xtc_with_optional_transformed_valid.bnf'
-with open(bnf_file_path_with_optional_and_transformed, 'w') as file:
-    file.write(bnf_content_with_optional_and_transformed)
+# Perform the conversion
+convert_ebnf_to_bnf(input_file_path, output_file_path)
 
-bnf_file_path_with_optional_and_transformed  # Return the path to the converted file with optional elements handled and left recursion transformed
+output_file_path  # Return the path to the converted file

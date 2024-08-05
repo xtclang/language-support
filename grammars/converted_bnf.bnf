@@ -1,857 +1,333 @@
-<<Name>> ::= <Letter> (<Letter> | <Digit> | "_")*
-<<Letter>> ::= "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "_"
-<<Digit>> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | Letter
-"A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
-"a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
-Digit
-"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-Name
-(<Letter> | "_") (<Letter> | <Digit> | "_")*
-QualifiedName
-Name
-QualifiedName "." Name
-Modifiers
-Modifier
-Modifiers Modifier
-Modifier
-"static"
-AccessModifier
-Annotation
-AccessModifier
-"public"
-"protected"
-"private"
-Annotations
-Annotation
-Annotations Annotation
-Annotation
-"@" NoWhitespace NamedTypeExpression NoWhitespace <ArgumentList>
-ParameterList
-"(" Parameters ")"
-Parameters
-Parameter
-Parameters "," Parameter
-Parameter
-TypeExpression Name <DefaultValue>
-DefaultValue
-"=" Expression
-ArgumentList
-"(" <Arguments> ")"
-Arguments
-Argument
-Arguments "," Argument
-Argument
-<NamedArgument> ArgumentExpression
-ArgumentExpression
-"_"
-"<" ExtendedTypeExpression ">" "_"
-Expression
-NamedArgument
-Name "="
-TypeParameterList
-"<" TypeParameters ">"
-TypeParameters
-TypeParameter
-TypeParameters "," TypeParameter
-TypeParameter
-Name <TypeParameterConstraint>
-TypeParameterConstraint
-"extends" ExtendedTypeExpression
-TypeParameterTypeList
-"<" TypeExpressionList ">"
-TypeExpressionList
-TypeExpressionListElement
-TypeExpressionList "," TypeExpressionListElement
-TypeExpressionListElement
-TypeParameterTypeList
-ExtendedTypeExpression
-CompilationUnit
-<ImportStatements> TypeCompositionStatement
-ImportStatements
-ImportStatement
-ImportStatements ImportStatement
-TypeCompositionStatement
-<Modifiers> Category QualifiedName <TypeParameterList> <ParameterList> <Compositions> TypeCompositionBody
-Category
-"module"
-"package"
-"class"
-"interface"
-"service"
-"const"
-"enum"
-"mixin"
-Compositions
-ConditionalComposition
-Compositions ConditionalComposition
-ConditionalComposition
-IfComposition
-Composition
-IfComposition
-"if" "(" Expression ")" "{" Compositions "}" <ElseComposition>
-ElseComposition
-"else" IfComposition
-"else" "{" Compositions "}"
-Composition
-"extends" ExtendsList
-"implements" ImplementsList
-"delegates" DelegatesList
-"incorporates" IncorporatesList
-"into" AnyTypeExpression
-"import" <ImportModifier> QualifiedName <VersionRequirement> <ResourceProvider>
-"default" "(" Expression ")"
-ExtendsList
-ExtendsSingle
-ExtendsList "," ExtendsSingle
-ExtendsSingle
-TypeExpression <ArgumentList>
-ImplementsList
-ImplementsSingle
-ImplementsList "," ImplementsSingle
-ImplementsSingle
-ExtendedTypeExpression
-DelegatesList
-DelegatesSingle
-DelegatesList "," DelegatesSingle
-DelegatesSingle
-AnyTypeExpression "(" Expression ")"
-IncorporatesList
-IncorporatesSingle
-IncorporatesList "," IncorporatesSingle
-IncorporatesSingle
-"conditional" QualifiedName TypeParameterList <ArgumentList>
-TypeExpression <ArgumentList>
-ImportModifier
-"embedded"
-"required"
-"desired"
-"optional"
-VersionRequirement
-Version <VersionOverrides>
-VersionOverrides
-VersionOverride
-VersionOverrides "," VersionOverride
-VersionOverride
-VersionOverrideVerb Versions
-VersionOverrideVerb
-"allow"
-"avoid"
-"prefer"
-Versions
-Version
-Versions "," Version
-Version
-VersionLiteral
-ResourceProvider
-<ResourceList> "using" NamedTypeExpression
-ResourceList
-"inject" "(" <ResourceListContents> ")"
-ResourceListContents
-Resources [","]
-Resources
-Resource
-Resources "," Resource
-Resource
-TypeExpression ResourceFinish
-ResourceFinish
-Name
-"_"
-TypeCompositionBody
-"{" EnumBody "}"
-"{" TypeCompositionComponents "}"
-";"
-EnumBody
-Enums <EnumBodyFinish>
-Enums
-Enum
-Enums "," Enum
-EnumBodyFinish
-";" TypeCompositionComponents
-Enum
-<Annotations> Name <TypeParameterTypeList> <ArgumentList> <TypeCompositionBody>
-TypeCompositionComponents
-ConditionalTypeCompositionComponent
-TypeCompositionComponents ConditionalTypeCompositionComponent
-ConditionalTypeCompositionComponent
-IfTypeCompositionComponent
-TypeCompositionComponent
-IfTypeCompositionComponent
-"if" "(" Expression ")" "{" TypeCompositionComponents "}" <ElseTypeCompositionComponent>
-ElseTypeCompositionComponent
-"else" IfTypeCompositionComponent
-"else" "{" TypeCompositionComponents "}"
-TypeCompositionComponent
-<AccessModifier> TypeDefStatement
-ImportStatement
-TypeCompositionStatement
-PropertyDeclarationStatement
-MethodDeclarationStatement
-PropertyDeclarationStatement
-<PropertyModifiers> TypeExpression Name PropertyDeclarationFinish
-PropertyModifiers
-PropertyModifier
-PropertyModifiers PropertyModifiers
-PropertyModifier
-"static"
-PropertyAccessModifier
-Annotation
-PropertyAccessModifier
-AccessModifier
-AccessModifier "/" AccessModifier
-PropertyDeclarationFinish
-";"
-PropertyDeclarationInitialValue
-"." Name Parameters MethodBody <PropertyDeclarationInitialValue>
-TypeCompositionBody <PropertyDeclarationInitialValue>
-PropertyDeclarationInitialValue
-"=" Expression ";"
-MethodDeclarationStatement
-<MethodModifiers> <TypeParameterList> MethodIdentity ParameterList MethodDeclarationFinish
-MethodModifiers
-MethodModifier
-MethodModifiers MethodModifier
-MethodModifier
-Modifier
-Annotation
-MethodIdentity
-"construct"
-["conditional"] ReturnList Name <RedundantReturnSpecifier>
-ReturnList
-"void"
-SingleReturnList
-"(" MultiReturnList ")"
-SingleReturnList
-TypeExpression
-MultiReturnList
-MultiReturn
-MultiReturnList "," MultiReturn
-MultiReturn
-TypeExpression <Name>
-RedundantReturnSpecifier
-"<" TypeExpressionList ">"
-MethodDeclarationFinish
-";"
-"=" Expression ";"
-StatementBlock
-Statement
-TypeCompositionStatement
-PropertyDeclarationStatement
-MethodDeclarationStatement
-VariableDeclaration ";"
-Assignment ";"
-LabeledStatement
-AssertStatement
-BreakStatement
-ContinueStatement
-DoStatement
-ForStatement
-IfStatement
-ImportStatement
-ReturnStatement
-SwitchStatement
-TryStatement
-TypeDefStatement
-UsingStatement
-WhileStatement
-StatementBlock
-Expression ";"
-StatementBlock
-"{" Statements "}"
-Statements
-Statement
-Statements Statement
-VariableDeclaration
-VariableTypeExpression Name <VariableInitializerFinish>
-"(" OptionalDeclarationList "," OptionalDeclaration ")" "=" Expression
-VariableInitializerFinish
-"=" Expression
-OptionalDeclarationList
-OptionalDeclaration
-OptionalDeclarationList "," OptionalDeclaration
-OptionalDeclaration
-Assignable
-VariableTypeExpression Name
-VariableTypeExpression
-"val"
-"var"
-TypeExpression
-Assignment
-Assignee AssignmentOperator Expression
-Assignee
-Assignable
-"(" AssignableList "," Assignable ")"
-AssignableList
-Assignable
-AssignableList "," Assignable
-Assignable
-Name
-TernaryExpression "." Name
-TernaryExpression ArrayIndexes
-AssignmentOperator
-"="
-"*="
-"/="
-"%="
-"+="
-"-="
-"<<="
-">>="
-">>>="
-"&="
-"&&="
-"|="
-"||="
-"^="
-"?:="
-":="
-"?="
-LabeledStatement
-Name ":" Whitespace Statement
-AssertStatement
-AssertInstruction <ConditionList> <AssertMessage> ";"
-AssertInstruction
-"assert"
-"assert:arg"
-"assert:bounds"
-"assert:TODO"
-"assert:once"
-"assert:rnd(" Expression ")"
-"assert:test"
-"assert:debug"
-AssertMessage
-"as" Expression
-ForStatement
-"for" "(" ForCondition ")" StatementBlock
-ForCondition
-<VariableInitializationList> ";" <ConditionList> ";" <VariableModificationList>
-OptionalDeclaration ":" Expression
-"(" OptionalDeclarationList "," OptionalDeclaration ")" ":" Expression
-VariableInitializationList
-VariableInitializer
-VariableInitializationList "," VariableInitializer
-VariableInitializer
-OptionalDeclaration "=" Expression
-"(" OptionalDeclarationList "," OptionalDeclaration ")" "=" Expression
-VariableModificationList
-VariableModification
-VariableModificationList "," VariableModification
-VariableModification
-Assignment
-Expression
-IfStatement
-"if" "(" ConditionList ")" StatementBlock <ElseStatement>
-ElseStatement
-"else" IfStatement
-"else" StatementBlock
-DoStatement
-"do" StatementBlock "while" "(" ConditionList ")" ";"
-WhileStatement
-"while" "(" ConditionList ")" StatementBlock
-ConditionList
-Condition
-ConditionList "," Condition
-Condition
-ConditionalAssignmentCondition
-"!" "(" ConditionalAssignmentCondition ")"
-Expression
-ConditionalAssignmentCondition
-OptionalDeclaration ConditionalAssignmentOp Expression
-"(" OptionalDeclarationList "," OptionalDeclaration ")" ConditionalAssignmentOp Expression
-ConditionalAssignmentOp
-":="
-"?="
-ImportStatement
-"import" QualifiedName ImportFinish
-ImportFinish
-";"
-"as" Name ";"
-NoWhitespace ".*" ";"
-ReturnStatement
-"return" <ReturnValue> ";"
-ReturnValue
-TupleLiteral
-ExpressionList
-SwitchStatement
-"switch" "(" SwitchCondition ")" "{" SwitchBlocks "}"
-SwitchCondition
-SwitchConditionExpression
-SwitchCondition "," SwitchConditionExpression
-SwitchConditionExpression
-VariableInitializer
-Expression
-SwitchBlocks
-SwitchBlock
-SwitchBlocks SwitchBlock
-SwitchBlock
-SwitchLabels Statements <SwitchBlockFinish>
-SwitchLabels
-SwitchLabel
-SwitchLabels SwitchLabel
-SwitchLabel
-"case" CaseOptionList ":"
-"default" ":"
-SwitchBlockFinish:
-BreakStatement
-ContinueStatement
-BreakStatement:
-"break" <Name> ";"
-ContinueStatement:
-"continue" <Name> ";"
-CaseOptionList:
-CaseOption
-CaseOptionList "," CaseOption
-CaseOption:
-"(" CaseExpressionList "," CaseExpression ")"
-SafeCaseExpression
-CaseExpressionList:
-CaseExpression
-CaseExpressionList "," CaseExpression
-CaseExpression:
-"_"
-Expression
-SafeCaseExpression:
-"_"
-TernaryExpression
-TryStatement
-"try" <TryResources> StatementBlock TryFinish
-TryResources
-"(" VariableInitializationList ")"
-TryFinish
-Catches
-<Catches> "finally" StatementBlock
-Catches
-Catch
-Catches Catch
-Catch
-"catch" "(" TypeExpression Name ")" StatementBlock
-UsingResources
-UsingResource
-UsingResources "," UsingResource
-UsingResource
-OptionalDeclaration "=" Expression
-"(" OptionalDeclarationList "," OptionalDeclaration ")" "=" Expression
-Expression
-UsingStatement
-"using" "(" UsingResources ")" StatementBlock
-TypeDefStatement
-"typedef" AnyTypeExpression "as" Name ";"
-Expression
-ElseExpression
-ElseExpression
-TernaryExpression
-TernaryExpression ":" ElseExpression
-TernaryExpression
-OrExpression
-OrExpression Whitespace "?" TernaryExpression ":" TernaryExpression
-OrExpression
-AndExpression
-OrExpression "||" AndExpression
-OrExpression "^^" AndExpression
-AndExpression
-EqualityExpression
-AndExpression "&&" EqualityExpression
-EqualityExpression
-RelationalExpression
-EqualityExpression "==" RelationalExpression
-EqualityExpression "!=" RelationalExpression
-RelationalExpression
-AssignmentExpression
-AssignmentExpression "<=>" AssignmentExpression
-RelationalExpression "<"   AssignmentExpression
-RelationalExpression "<="  AssignmentExpression
-RelationalExpression ">"   AssignmentExpression
-RelationalExpression ">="  AssignmentExpression
-AssignmentExpression
-RangeExpression
-RangeExpression "<-" AssignmentExpression
-RangeExpression
-BitwiseExpression
-RangeExpression ".." BitwiseExpression
-BitwiseExpression
-AdditiveExpression
-BitwiseExpression "<<"  AdditiveExpression
-BitwiseExpression ">>"  AdditiveExpression
-BitwiseExpression ">>>" AdditiveExpression
-BitwiseExpression "&"   AdditiveExpression
-BitwiseExpression "^"   AdditiveExpression
-BitwiseExpression "|"   AdditiveExpression
-AdditiveExpression
-MultiplicativeExpression
-AdditiveExpression "+" MultiplicativeExpression
-AdditiveExpression "-" MultiplicativeExpression
-MultiplicativeExpression
-ElvisExpression
-MultiplicativeExpression "*"  ElvisExpression
-MultiplicativeExpression "/"  ElvisExpression
-MultiplicativeExpression "%"  ElvisExpression
-MultiplicativeExpression "/%" ElvisExpression
-ElvisExpression
-PrefixExpression
-PrefixExpression "?:" ElvisExpression
-PrefixExpression
-PostfixExpression
-"++" PrefixExpression
-"--" PrefixExpression
-"+" PrefixExpression
-"-" PrefixExpression
-"!" PrefixExpression
-"~" PrefixExpression
-PostfixExpression
-PrimaryExpression
-PostfixExpression "++"
-PostfixExpression "--"
-PostfixExpression "(" <Arguments> ")"
-PostfixExpression ArrayDims
-PostfixExpression ArrayIndexes
-PostfixExpression NoWhitespace "?"
-PostfixExpression "." ["&"] DotNameFinish
-PostfixExpression ".new" NewFinish
-PostfixExpression ".as" "(" AnyTypeExpression ")"
-PostfixExpression ".is" "(" AnyTypeExpression ")"
-ArrayDims
-"[" <DimIndicators> "]"
-DimIndicators
-DimIndicator
-DimIndicators "," DimIndicator
-DimIndicator
-"?"
-ArrayIndexes
-"[" ExpressionList "]"
-ExpressionList
-Expression
-ExpressionList "," Expression
-DotNameFinish
-Name <TypeParameterTypeList>
-"default"
-NewFinish
-TypeExpression NewArguments <AnonClassBody>
-ArgumentList
-NewArguments
-ArrayIndexes <ArgumentList>
-ArgumentList
-PrimaryExpression
-"(" Expression ")"
-"new" NewFinish
-["&"] ["construct"] QualifiedName <TypeParameterTypeList>
-StatementExpression
-SwitchExpression
-LambdaExpression
-"_"
-Literal
-AnonClassBody
-"{" TypeCompositionComponents "}"
-StatementExpression
-StatementBlock
-"throw" TernaryExpression
-"TODO" <TodoFinish>
-"assert"
-SwitchExpression
-"switch" "(" <SwitchCondition> ")" "{" SwitchExpressionBlocks "}"
-SwitchExpressionBlocks
-SwitchExpressionBlock
-SwitchExpressionBlocks SwitchExpressionBlock
-SwitchExpressionBlock
-SwitchLabels ExpressionList ";"
-LambdaExpression
-LambdaInputs "->" LambdaBody
-LambdaInputs
-LambdaParameterName
-LambdaInferredList
-LambdaParameterList
-LambdaInferredList
-"(" LambdaParameterNames ")"
-LambdaParameterNames
-LambdaParameterName
-LambdaParameterNames "," LambdaParameterName
-LambdaParameterList
-"(" LambdaParameters ")"
-LambdaParameters
-LambdaParameter
-LambdaParameters "," LambdaParameter
-LambdaParameter
-TypeExpression LambdaParameterName
-LambdaParameterName
-"_"
-Name
-LambdaBody
-Expression
-StatementBlock
-TodoFinish
-InputCharacter-not-"(" InputCharacters LineTerminator
-NoWhitespace "(" <Expression> ")"
-Literal
-TypedNumericLiteral
-IntLiteral
-FPDecimalLiteral
-FPBinaryLiteral
-CharLiteral
-StringLiteral
-BinaryLiteral
-TupleLiteral
-ListLiteral
-MapLiteral
-VersionLiteral
-DateLiteral
-TimeOfDayLiteral
-TimeLiteral
-TimeZoneLiteral
-DurationLiteral
-PathLiteral
-FileLiteral
-DirectoryLiteral
-FileStoreLiteral
-TypedNumericLiteral:
-IntTypeName ":" IntLiteral
-FPTypeName ":" FPLiteral
-FPLiteral:
-IntLiteral
-FPDecimalLiteral
-FPBinaryLiteral
-IntTypeName:
-"Int"
-"Int8"
-"Int16"
-"Int32"
-"Int64"
-"Int128"
-"IntN"
-"Byte"
-"UInt"
-"UInt8"
-"UInt16"
-"UInt32"
-"UInt64"
-"UInt128"
-"UIntN"
-FPTypeName:
-"Dec"
-"Dec32"
-"Dec64"
-"Dec128"
-"DecN"
-"Float8e4"
-"Float8e5"
-"BFloat16"
-"Float16"
-"Float32"
-"Float64"
-"Float128"
-"FloatN"
-StringLiteral
-'"' <CharacterString> '"'
-'$"' <CharacterString> '"'
-"\|" FreeformLiteral
-"$|" FreeformLiteral
-"$" NoWhitespace File
-FreeformLiteral
-FreeformChars LineTerminator <FreeformLines>
-FreeformLines
-FreeformLine
-FreeformLines FreeformLine
-FreeformLine
-<Whitespace> "|" FreeformChars LineTerminator
-FreeformChars
-FreeformChar
-FreeformChars FreeformChar
-FreeformChar
-InputCharacter except LineTerminator
-BinaryLiteral
-"#" NoWhitespace Hexits
-"#|" FreeformLiteral
-"#" NoWhitespace File
-TupleLiteral
-"(" ExpressionList "," Expression ")"
-TypeExpression NoWhitespace ":" "(" <ExpressionList> ")"
-CollectionLiteral
-"[" <ExpressionList> "]"
-TypeExpression NoWhitespace ":" "[" <ExpressionList> "]"
-MapLiteral
-"[" <Entries> "]"
-TypeExpression NoWhitespace ":" "[" <Entries> "]"
-Entries
-Entry
-Entries "," Entry
-Entry
-Expression "=" Expression
-VersionLiteral
-"Version:" NoWhitespace VersionString
-"v:" NoWhitespace VersionString
-VersionString
-NonGASuffix
-VersionNumbers NoWhitespace <VersionFinish> NoWhitespace <Build>
-VersionNumbers
-DigitsNoUnderscores
-VersionNumbers NoWhitespace "." NoWhitespace DigitsNoUnderscores
-VersionFinish:
-"-" NoWhitespace NonGASuffix
-"." NoWhitespace NonGASuffix
-NonGASuffix
-NonGASuffix
-NonGAPrefix NoWhitespace <NonGAVersion>
-NonGAVersion
-"-" NoWhitespace DigitsNoUnderscores
-"." NoWhitespace DigitsNoUnderscores
-DigitsNoUnderscores
-Build
-"+" NoWhitespace BuildChars
-BuildChars
-BuildChar
-BuildChars BuildChar
-BuildChar
-"0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-"A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
-"a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
-"-"
-"."
-NonGAPrefix:
-"dev"
-"ci"
-"qc"
-"alpha"
-"beta"
-"rc"
-DateLiteral
-"Date:" Digit Digit Digit Digit "-" Digit Digit "-" Digit Digit
-TimeOfDayLiteral
-"TimeOfDay:" Digit Digit ":" Digit Digit <Seconds>
-Seconds
-":" Digit Digit <SecondsFraction>
-SecondsFraction
-"." NoWhitespace Digits
-TimeLiteral
-"Time:" Digit Digit Digit Digit "-" Digit Digit "-" Digit Digit "T" Digit Digit ":" Digit Digit <Seconds> <TimeZone>
-TimeZoneLiteral
-"TimeZone:" NoWhitespace TimeZone
-TimeZone
-"Z"
-"+" NoWhitespace Digit NoWhitespace Digit NoWhitespace <MinutesOffset>
-"-" NoWhitespace Digit NoWhitespace Digit NoWhitespace <MinutesOffset>
-MinutesOffset
-":" NoWhitespace Digit NoWhitespace Digit
-DurationLiteral
-"Duration:P" <YearsDuration> <MonthsDuration> <DaysDuration> <TimeDuration>
-TimeDuration
-"T" NoWhitespace <HoursDuration> NoWhitespace <MinutesDuration> NoWhitespace <SecondsDuration>
-YearsDuration
-DigitsNoUnderscores NoWhitespace "Y"
-MonthsDuration
-DigitsNoUnderscores NoWhitespace "M"
-DaysDuration
-DigitsNoUnderscores NoWhitespace "D"
-HoursDuration
-DigitsNoUnderscores NoWhitespace "H"
-MinutesDuration
-DigitsNoUnderscores NoWhitespace "M"
-SecondsDuration
-DigitsNoUnderscores NoWhitespace "S"
-PathLiteral
-"Path:" NoWhitespace Dir NoWhitespace <PathName>
-FileLiteral
-["File:"] NoWhitespace File
-DirectoryLiteral
-["Directory:"] NoWhitespace Dir
-FileStoreLiteral
-"FileStore:" NoWhitespace Dir NoWhitespace <PathName>
-File
-Dir NoWhitespace PathName
-Dir
-"/" NoWhitespace <DirElements>
-"./" NoWhitespace <DirElements>
-"../" NoWhitespace <DirElements>
-DirElements
-DirElement
-DirElements NoWhitespace DirElement
-DirElement
-"../"
-PathName NoWhitespace "/"
-PathName
-["."] NoWhitespace PathNameParts
-PathNameParts
-PathNamePart
-PathNameParts NoWhitespace PathNameSpecial NoWhitespace PathNamePart
-PathNamePart
-IdentifierTrails
-PathNameSpecial
-"."
-"-"
-IdentifierTrails
-IdentifierTrail
-IdentifierTrails IdentifierTrail
-IdentifierTrail
-TypeExpression
-IntersectingTypeExpression
-ExtendedTypeExpression
-ExtendedIntersectingTypeExpression
-AnyTypeExpression
-ExtendedTypeExpression
-IntersectingTypeExpression
-UnionedTypeExpression
-IntersectingTypeExpression "+" UnionedTypeExpression
-IntersectingTypeExpression "-" UnionedTypeExpression
-ExtendedIntersectingTypeExpression
-ExtendedUnionedTypeExpression
-ExtendedIntersectingTypeExpression "+" ExtendedUnionedTypeExpression
-ExtendedIntersectingTypeExpression "-" ExtendedUnionedTypeExpression
-UnionedTypeExpression
-PrefixTypeExpression
-UnionedTypeExpression "|" PrefixTypeExpression
-ExtendedUnionedTypeExpression
-ExtendedPrefixTypeExpression
-ExtendedUnionedTypeExpression "|" ExtendedPrefixTypeExpression
-PrefixTypeExpression
-["immutable"] <Annotations> PostfixTypeExpression
-ExtendedPrefixTypeExpression
-["immutable"] <TypeAccessModifier> <Annotations> ExtendedPostfixTypeExpression
-TypeAccessModifier
-"struct"
-AccessModifier
-PostfixTypeExpression
-PrimaryTypeExpression
-PostfixTypeExpression NoWhitespace "?"
-PostfixTypeExpression ArrayDims
-PostfixTypeExpression ArrayIndexes
-ExtendedPostfixTypeExpression
-ExtendedPrimaryTypeExpression
-ExtendedPostfixTypeExpression NoWhitespace "?"
-ExtendedPostfixTypeExpression ArrayDims
-ExtendedPostfixTypeExpression ArrayIndexes
-PrimaryTypeExpression
-"(" ExtendedTypeExpression ")"
-NamedTypeExpression
-FunctionTypeExpression
-ExtendedPrimaryTypeExpression
-"(" ExtendedTypeExpression ")"
-NamedTypeExpression
-FunctionTypeExpression
-AnonTypeExpression
-"const"
-"enum"
-"module"
-"package"
-"service"
-"class"
-NamedTypeExpression
-NamedTypeExpressionPart
-NamedTypeExpression "." <Annotations> NamedTypeExpressionPart
-NamedTypeExpressionPart
-QualifiedName <NoAutoNarrowModifier> <TypeParameterTypeList> <TypeValueSet>
-NoAutoNarrowModifier
-NoWhitespace "!"
-TypeValueSet
-"{" TypeValueList "}"
-TypeValueList
-TypeValue
-TypeValueList "," TypeValue
-TypeValue
-Expression
-AnonTypeExpression
-"{" NameOrSignatureList ";" "}"
-NameOrSignatureList
-NameOrSignature
-NameOrSignatureList ";" NameOrSignature
-NameOrSignature
-Name
-<PropertyModifiers> TypeExpression Name
-<MethodModifiers> <TypeParameterList> MethodIdentity ParameterList
-FunctionTypeExpression
-"function" ["conditional"] ReturnList <Name> "(" <TypeExpressionList> ")"
+<Letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+<Digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+<Digits> ::= Digit <DigitsRest>
+<DigitsRest> ::= Digit <DigitsRest> | ε
+<DigitsNoUnderscores> ::= Digits
+<Whitespace> ::= " " | "\t" | "\n" | "\r"
+<Name> ::= (<Letter> | "_") (<Letter> | <Digit> | "_")*
+<QualifiedName> ::= Name <QualifiedNameRest>
+<QualifiedNameRest> ::= "." Name <QualifiedNameRest> | ε
+<Modifiers> ::= Modifier <ModifiersRest>
+<ModifiersRest> ::= Modifier <ModifiersRest> | ε
+<Modifier> ::= "static" | AccessModifier | Annotation
+<AccessModifier> ::= "public" | "protected" | "private"
+<Annotations> ::= Annotation <AnnotationsRest>
+<AnnotationsRest> ::= Annotation <AnnotationsRest> | ε
+<Annotation> ::= "@" NoWhitespace NamedTypeExpression NoWhitespace <ArgumentList>
+<ParameterList> ::= "(" Parameters ")"
+<Parameters> ::= Parameter <ParametersRest>
+<ParametersRest> ::= "," Parameter <ParametersRest> | ε
+<Parameter> ::= TypeExpression Name <DefaultValue>
+<DefaultValue> ::= "=" Expression
+<ArgumentList> ::= "(" <Arguments> ")"
+<Arguments> ::= Argument <ArgumentsRest>
+<ArgumentsRest> ::= "," Argument <ArgumentsRest> | ε
+<Argument> ::= <NamedArgument> ArgumentExpression
+<ArgumentExpression> ::= "_" | "<" ExtendedTypeExpression ">" "_" | Expression
+<NamedArgument> ::= Name "="
+<TypeParameterList> ::= "<" TypeParameters ">"
+<TypeParameters> ::= TypeParameter <TypeParametersRest>
+<TypeParametersRest> ::= "," TypeParameter <TypeParametersRest> | ε
+<TypeParameter> ::= Name <TypeParameterConstraint>
+<TypeParameterConstraint> ::= "extends" ExtendedTypeExpression
+<TypeParameterTypeList> ::= "<" TypeExpressionList ">"
+<TypeExpressionList> ::= ε <TypeExpressionListRest>
+<TypeExpressionListRest> ::= Element | "," TypeExpressionListElement <TypeExpressionListRest> | ε
+<TypeExpressionListElement> ::= TypeParameterTypeList | ExtendedTypeExpression
+<CompilationUnit> ::= <ImportStatements> TypeCompositionStatement
+<ImportStatements> ::= ImportStatement <ImportStatementsRest>
+<ImportStatementsRest> ::= ImportStatement <ImportStatementsRest> | ε
+<TypeCompositionStatement> ::= <Modifiers> Category QualifiedName <TypeParameterList> <ParameterList> <Compositions> TypeCompositionBody
+<Category> ::= "module" | "package" | "class" | "interface" | "service" | "const" | "enum" | "mixin"
+<Compositions> ::= ConditionalComposition <CompositionsRest>
+<CompositionsRest> ::= ConditionalComposition <CompositionsRest> | ε
+<ConditionalComposition> ::= IfComposition | Composition
+<IfComposition> ::= "if" "(" Expression ")" "{" Compositions "}" <ElseComposition>
+<ElseComposition> ::= "else" IfComposition | "else" "{" Compositions "}"
+<Composition> ::= "extends" ExtendsList | "implements" ImplementsList | "delegates" DelegatesList | "incorporates" IncorporatesList | "into" AnyTypeExpression | "import" <ImportModifier> QualifiedName <VersionRequirement> <ResourceProvider> | "default" "(" Expression ")"
+<ExtendsList> ::= ExtendsSingle <ExtendsListRest>
+<ExtendsListRest> ::= "," ExtendsSingle <ExtendsListRest> | ε
+<ExtendsSingle> ::= TypeExpression <ArgumentList>
+<ImplementsList> ::= ImplementsSingle <ImplementsListRest>
+<ImplementsListRest> ::= "," ImplementsSingle <ImplementsListRest> | ε
+<ImplementsSingle> ::= ExtendedTypeExpression
+<DelegatesList> ::= DelegatesSingle <DelegatesListRest>
+<DelegatesListRest> ::= "," DelegatesSingle <DelegatesListRest> | ε
+<DelegatesSingle> ::= AnyTypeExpression "(" Expression ")"
+<IncorporatesList> ::= IncorporatesSingle <IncorporatesListRest>
+<IncorporatesListRest> ::= "," IncorporatesSingle <IncorporatesListRest> | ε
+<IncorporatesSingle> ::= "conditional" QualifiedName TypeParameterList <ArgumentList> | TypeExpression <ArgumentList>
+<ImportModifier> ::= "embedded" | "required" | "desired" | "optional"
+<VersionRequirement> ::= Version <VersionOverrides>
+<VersionOverrides> ::= VersionOverride <VersionOverridesRest>
+<VersionOverridesRest> ::= "," VersionOverride <VersionOverridesRest> | ε
+<VersionOverride> ::= ε <VersionOverrideRest>
+<VersionOverrideRest> ::= Verb Versions <VersionOverrideRest> | ε
+<VersionOverrideVerb> ::= "allow" | "avoid" | "prefer"
+<Versions> ::= Version <VersionsRest>
+<VersionsRest> ::= "," Version <VersionsRest> | ε
+<Version> ::= ε <VersionRest>
+<VersionRest> ::= Literal <VersionRest> | ε
+<ResourceProvider> ::= <ResourceList> "using" NamedTypeExpression
+<ResourceList> ::= "inject" "(" <ResourceListContents> ")"
+<ResourceListContents> ::= Resources [","]
+<Resources> ::= Resource <ResourcesRest>
+<ResourcesRest> ::= "," Resource <ResourcesRest> | ε
+<Resource> ::= TypeExpression ResourceFinish
+<ResourceFinish> ::= Name | "_"
+<TypeCompositionBody> ::= "{" EnumBody "}" | "{" TypeCompositionComponents "}" | ";"
+<EnumBody> ::= Enums <EnumBodyFinish>
+<Enums> ::= Enum <EnumsRest>
+<EnumsRest> ::= "," Enum <EnumsRest> | ε
+<EnumBodyFinish> ::= ";" TypeCompositionComponents
+<Enum> ::= <Annotations> Name <TypeParameterTypeList> <ArgumentList> <TypeCompositionBody>
+<TypeCompositionComponents> ::= ConditionalTypeCompositionComponent <TypeCompositionComponentsRest>
+<TypeCompositionComponentsRest> ::= ConditionalTypeCompositionComponent <TypeCompositionComponentsRest> | ε
+<ConditionalTypeCompositionComponent> ::= IfTypeCompositionComponent | TypeCompositionComponent
+<IfTypeCompositionComponent> ::= "if" "(" Expression ")" "{" TypeCompositionComponents "}" <ElseTypeCompositionComponent>
+<ElseTypeCompositionComponent> ::= "else" IfTypeCompositionComponent | "else" "{" TypeCompositionComponents "}"
+<TypeCompositionComponent> ::= <AccessModifier> TypeDefStatement | ImportStatement | TypeCompositionStatement | PropertyDeclarationStatement | MethodDeclarationStatement
+<PropertyDeclarationStatement> ::= <PropertyModifiers> TypeExpression Name PropertyDeclarationFinish
+<PropertyModifiers> ::= PropertyModifier <PropertyModifiersRest>
+<PropertyModifiersRest> ::= PropertyModifiers <PropertyModifiersRest> | ε
+<PropertyModifier> ::= "static" | PropertyAccessModifier | Annotation
+<PropertyAccessModifier> ::= AccessModifier | AccessModifier "/" AccessModifier
+<PropertyDeclarationFinish> ::= ";" | PropertyDeclarationInitialValue | "." Name Parameters MethodBody <PropertyDeclarationInitialValue> | TypeCompositionBody <PropertyDeclarationInitialValue>
+<PropertyDeclarationInitialValue> ::= "=" Expression ";"
+<MethodDeclarationStatement> ::= <MethodModifiers> <TypeParameterList> MethodIdentity ParameterList MethodDeclarationFinish
+<MethodModifiers> ::= MethodModifier <MethodModifiersRest>
+<MethodModifiersRest> ::= MethodModifier <MethodModifiersRest> | ε
+<MethodModifier> ::= Modifier | Annotation
+<MethodIdentity> ::= "construct" | ["conditional"] ReturnList Name <RedundantReturnSpecifier>
+<ReturnList> ::= "void" | SingleReturnList | "(" MultiReturnList ")"
+<SingleReturnList> ::= TypeExpression
+<MultiReturnList> ::= MultiReturn <MultiReturnListRest>
+<MultiReturnListRest> ::= "," MultiReturn <MultiReturnListRest> | ε
+<MultiReturn> ::= TypeExpression <Name>
+<RedundantReturnSpecifier> ::= "<" TypeExpressionList ">"
+<MethodDeclarationFinish> ::= ";" | "=" Expression ";" | StatementBlock
+<Statement> ::= TypeCompositionStatement | PropertyDeclarationStatement | MethodDeclarationStatement | VariableDeclaration ";" | Assignment ";" | LabeledStatement | AssertStatement | BreakStatement | ContinueStatement | DoStatement | ForStatement | IfStatement | ImportStatement | ReturnStatement | SwitchStatement | TryStatement | TypeDefStatement | UsingStatement | WhileStatement | Expression ";" <StatementRest>
+<StatementRest> ::= Block <StatementRest> | ε
+<StatementBlock> ::= "{" Statements "}"
+<Statements> ::= Statement <StatementsRest>
+<StatementsRest> ::= Statement <StatementsRest> | ε
+<VariableDeclaration> ::= VariableTypeExpression Name <VariableInitializerFinish> | "(" OptionalDeclarationList "," OptionalDeclaration ")" "=" Expression
+<VariableInitializerFinish> ::= "=" Expression
+<OptionalDeclarationList> ::= OptionalDeclaration <OptionalDeclarationListRest>
+<OptionalDeclarationListRest> ::= "," OptionalDeclaration <OptionalDeclarationListRest> | ε
+<OptionalDeclaration> ::= Assignable | VariableTypeExpression Name
+<VariableTypeExpression> ::= "val" | "var" | TypeExpression
+<Assignment> ::= Assignee AssignmentOperator Expression
+<Assignee> ::= Assignable | "(" AssignableList "," Assignable ")"
+<AssignableList> ::= Assignable <AssignableListRest>
+<AssignableListRest> ::= "," Assignable <AssignableListRest> | ε
+<Assignable> ::= Name | TernaryExpression "." Name | TernaryExpression ArrayIndexes
+<AssignmentOperator> ::= "=" | "*=" | "/=" | "%=" | "+=" | "-=" | "<<=" | ">>=" | ">>>=" | "&=" | "&&=" | "|=" | "||=" | "^=" | "?:=" | ":=" | "?="
+<LabeledStatement> ::= Name ":" Whitespace Statement
+<AssertStatement> ::= AssertInstruction <ConditionList> <AssertMessage> ";"
+<AssertInstruction> ::= "assert" | "assert:arg" | "assert:bounds" | "assert:TODO" | "assert:once" | "assert:rnd(" Expression ")" | "assert:test" | "assert:debug"
+<AssertMessage> ::= "as" Expression
+<ForStatement> ::= "for" "(" ForCondition ")" StatementBlock
+<ForCondition> ::= <VariableInitializationList> ";" <ConditionList> ";" <VariableModificationList> | OptionalDeclaration ":" Expression | "(" OptionalDeclarationList "," OptionalDeclaration ")" ":" Expression
+<VariableInitializationList> ::= VariableInitializer <VariableInitializationListRest>
+<VariableInitializationListRest> ::= "," VariableInitializer <VariableInitializationListRest> | ε
+<VariableInitializer> ::= OptionalDeclaration "=" Expression | "(" OptionalDeclarationList "," OptionalDeclaration ")" "=" Expression
+<VariableModificationList> ::= VariableModification <VariableModificationListRest>
+<VariableModificationListRest> ::= "," VariableModification <VariableModificationListRest> | ε
+<VariableModification> ::= Assignment | Expression
+<IfStatement> ::= "if" "(" ConditionList ")" StatementBlock <ElseStatement>
+<ElseStatement> ::= "else" IfStatement | "else" StatementBlock
+<DoStatement> ::= "do" StatementBlock "while" "(" ConditionList ")" ";"
+<WhileStatement> ::= "while" "(" ConditionList ")" StatementBlock
+<ConditionList> ::= Condition <ConditionListRest>
+<ConditionListRest> ::= "," Condition <ConditionListRest> | ε
+<Condition> ::= "!" "(" ConditionalAssignmentCondition ")" | Expression <ConditionRest>
+<ConditionRest> ::= alAssignmentCondition <ConditionRest> | ε
+<ConditionalAssignmentCondition> ::= OptionalDeclaration ConditionalAssignmentOp Expression | "(" OptionalDeclarationList "," OptionalDeclaration ")" ConditionalAssignmentOp Expression
+<ConditionalAssignmentOp> ::= ":=" | "?="
+<ImportStatement> ::= "import" QualifiedName ImportFinish
+<ImportFinish> ::= ";" | "as" Name ";" | NoWhitespace ".*" ";"
+<ReturnStatement> ::= "return" <ReturnValue> ";"
+<ReturnValue> ::= TupleLiteral | ExpressionList
+<SwitchStatement> ::= "switch" "(" SwitchCondition ")" "{" SwitchBlocks "}"
+<SwitchCondition> ::= ε <SwitchConditionRest>
+<SwitchConditionRest> ::= Expression | "," SwitchConditionExpression <SwitchConditionRest> | ε
+<SwitchConditionExpression> ::= VariableInitializer | Expression
+<SwitchBlocks> ::= SwitchBlock <SwitchBlocksRest>
+<SwitchBlocksRest> ::= SwitchBlock <SwitchBlocksRest> | ε
+<SwitchBlock> ::= SwitchLabels Statements <SwitchBlockFinish>
+<SwitchLabels> ::= SwitchLabel <SwitchLabelsRest>
+<SwitchLabelsRest> ::= SwitchLabel <SwitchLabelsRest> | ε
+<SwitchLabel> ::= "case" CaseOptionList ":" | "default" ":"
+<SwitchBlockFinish> ::= BreakStatement | ContinueStatement
+<BreakStatement> ::= "break" <Name> ";"
+<ContinueStatement> ::= "continue" <Name> ";"
+<CaseOptionList> ::= CaseOption <CaseOptionListRest>
+<CaseOptionListRest> ::= "," CaseOption <CaseOptionListRest> | ε
+<CaseOption> ::= "(" CaseExpressionList "," CaseExpression ")" | SafeCaseExpression
+<CaseExpressionList> ::= CaseExpression <CaseExpressionListRest>
+<CaseExpressionListRest> ::= "," CaseExpression <CaseExpressionListRest> | ε
+<CaseExpression> ::= "_" | Expression
+<SafeCaseExpression> ::= "_" | TernaryExpression
+<TryStatement> ::= "try" <TryResources> StatementBlock TryFinish
+<TryResources> ::= "(" VariableInitializationList ")"
+<TryFinish> ::= Catches | <Catches> "finally" StatementBlock
+<Catches> ::= Catch <CatchesRest>
+<CatchesRest> ::= Catch <CatchesRest> | ε
+<Catch> ::= "catch" "(" TypeExpression Name ")" StatementBlock
+<UsingResources> ::= UsingResource <UsingResourcesRest>
+<UsingResourcesRest> ::= "," UsingResource <UsingResourcesRest> | ε
+<UsingResource> ::= OptionalDeclaration "=" Expression | "(" OptionalDeclarationList "," OptionalDeclaration ")" "=" Expression | Expression
+<UsingStatement> ::= "using" "(" UsingResources ")" StatementBlock
+<TypeDefStatement> ::= "typedef" AnyTypeExpression "as" Name ";"
+<Expression> ::= ElseExpression
+<ElseExpression> ::= TernaryExpression | TernaryExpression ":" ElseExpression
+<TernaryExpression> ::= OrExpression | OrExpression Whitespace "?" TernaryExpression ":" TernaryExpression
+<OrExpression> ::= AndExpression <OrExpressionRest>
+<OrExpressionRest> ::= "||" AndExpression | "^^" AndExpression <OrExpressionRest> | ε
+<AndExpression> ::= EqualityExpression <AndExpressionRest>
+<AndExpressionRest> ::= "&&" EqualityExpression <AndExpressionRest> | ε
+<EqualityExpression> ::= RelationalExpression <EqualityExpressionRest>
+<EqualityExpressionRest> ::= "==" RelationalExpression | "!=" RelationalExpression <EqualityExpressionRest> | ε
+<RelationalExpression> ::= AssignmentExpression | AssignmentExpression "<=>" AssignmentExpression <RelationalExpressionRest>
+<RelationalExpressionRest> ::= "<"   AssignmentExpression | "<="  AssignmentExpression | ">"   AssignmentExpression | ">="  AssignmentExpression <RelationalExpressionRest> | ε
+<AssignmentExpression> ::= RangeExpression | RangeExpression "<-" AssignmentExpression
+<RangeExpression> ::= BitwiseExpression <RangeExpressionRest>
+<RangeExpressionRest> ::= ".." BitwiseExpression <RangeExpressionRest> | ε
+<BitwiseExpression> ::= AdditiveExpression <BitwiseExpressionRest>
+<BitwiseExpressionRest> ::= "<<"  AdditiveExpression | ">>"  AdditiveExpression | ">>>" AdditiveExpression | "&"   AdditiveExpression | "^"   AdditiveExpression | "|"   AdditiveExpression <BitwiseExpressionRest> | ε
+<AdditiveExpression> ::= MultiplicativeExpression <AdditiveExpressionRest>
+<AdditiveExpressionRest> ::= "+" MultiplicativeExpression | "-" MultiplicativeExpression <AdditiveExpressionRest> | ε
+<MultiplicativeExpression> ::= ElvisExpression <MultiplicativeExpressionRest>
+<MultiplicativeExpressionRest> ::= "*"  ElvisExpression | "/"  ElvisExpression | "%"  ElvisExpression | "/%" ElvisExpression <MultiplicativeExpressionRest> | ε
+<ElvisExpression> ::= PrefixExpression | PrefixExpression "?:" ElvisExpression
+<PrefixExpression> ::= PostfixExpression | "++" PrefixExpression | "--" PrefixExpression | "+" PrefixExpression | "-" PrefixExpression | "!" PrefixExpression | "~" PrefixExpression
+<PostfixExpression> ::= PrimaryExpression <PostfixExpressionRest>
+<PostfixExpressionRest> ::= "++" | "--" | "(" <Arguments> ")" | ArrayDims | ArrayIndexes | NoWhitespace "?" | "." ["&"] DotNameFinish | ".new" NewFinish | ".as" "(" AnyTypeExpression ")" | ".is" "(" AnyTypeExpression ")" <PostfixExpressionRest> | ε
+<ArrayDims> ::= "[" <DimIndicators> "]"
+<DimIndicators> ::= DimIndicator <DimIndicatorsRest>
+<DimIndicatorsRest> ::= "," DimIndicator <DimIndicatorsRest> | ε
+<DimIndicator> ::= "?"
+<ArrayIndexes> ::= "[" ExpressionList "]"
+<ExpressionList> ::= Expression <ExpressionListRest>
+<ExpressionListRest> ::= "," Expression <ExpressionListRest> | ε
+<DotNameFinish> ::= Name <TypeParameterTypeList> | "default"
+<NewFinish> ::= TypeExpression NewArguments <AnonClassBody> | ArgumentList
+<NewArguments> ::= ArrayIndexes <ArgumentList> | ArgumentList
+<PrimaryExpression> ::= "(" Expression ")" | "new" NewFinish | ["&"] ["construct"] QualifiedName <TypeParameterTypeList> | StatementExpression | SwitchExpression | LambdaExpression | "_" | Literal
+<AnonClassBody> ::= "{" TypeCompositionComponents "}"
+<StatementExpression> ::= StatementBlock | "throw" TernaryExpression | "TODO" <TodoFinish> | "assert"
+<SwitchExpression> ::= "switch" "(" <SwitchCondition> ")" "{" SwitchExpressionBlocks "}"
+<SwitchExpressionBlocks> ::= SwitchExpressionBlock <SwitchExpressionBlocksRest>
+<SwitchExpressionBlocksRest> ::= SwitchExpressionBlock <SwitchExpressionBlocksRest> | ε
+<SwitchExpressionBlock> ::= SwitchLabels ExpressionList ";"
+<LambdaExpression> ::= LambdaInputs "->" LambdaBody
+<LambdaInputs> ::= LambdaParameterName | LambdaInferredList | LambdaParameterList
+<LambdaInferredList> ::= "(" LambdaParameterNames ")"
+<LambdaParameterNames> ::= LambdaParameterName <LambdaParameterNamesRest>
+<LambdaParameterNamesRest> ::= "," LambdaParameterName <LambdaParameterNamesRest> | ε
+<LambdaParameterList> ::= "(" LambdaParameters ")"
+<LambdaParameters> ::= LambdaParameter <LambdaParametersRest>
+<LambdaParametersRest> ::= "," LambdaParameter <LambdaParametersRest> | ε
+<LambdaParameter> ::= TypeExpression LambdaParameterName
+<LambdaParameterName> ::= "_" | Name
+<LambdaBody> ::= Expression | StatementBlock
+<TodoFinish> ::= InputCharacter-not-"(" InputCharacters LineTerminator | NoWhitespace "(" <Expression> ")"
+<Literal> ::= TypedNumericLiteral | IntLiteral | FPDecimalLiteral | FPBinaryLiteral | CharLiteral | StringLiteral | BinaryLiteral | TupleLiteral | ListLiteral | MapLiteral | VersionLiteral | DateLiteral | TimeOfDayLiteral | TimeLiteral | TimeZoneLiteral | DurationLiteral | PathLiteral | FileLiteral | DirectoryLiteral | FileStoreLiteral
+<TypedNumericLiteral> ::= IntTypeName ":" IntLiteral | FPTypeName ":" FPLiteral
+<FPLiteral> ::= IntLiteral | FPDecimalLiteral | FPBinaryLiteral
+<IntTypeName> ::= "Int" | "Int8" | "Int16" | "Int32" | "Int64" | "Int128" | "IntN" | "Byte" | "UInt" | "UInt8" | "UInt16" | "UInt32" | "UInt64" | "UInt128" | "UIntN"
+<FPTypeName> ::= "Dec" | "Dec32" | "Dec64" | "Dec128" | "DecN" | "Float8e4" | "Float8e5" | "BFloat16" | "Float16" | "Float32" | "Float64" | "Float128" | "FloatN"
+<StringLiteral> ::= '"' <CharacterString> '"' | '$"' <CharacterString> '"' | "\|" FreeformLiteral | "$|" FreeformLiteral | "$" NoWhitespace File
+<FreeformLiteral> ::= FreeformChars LineTerminator <FreeformLines>
+<FreeformLines> ::= FreeformLine <FreeformLinesRest>
+<FreeformLinesRest> ::= FreeformLine <FreeformLinesRest> | ε
+<FreeformLine> ::= <Whitespace> "|" FreeformChars LineTerminator
+<FreeformChars> ::= FreeformChar <FreeformCharsRest>
+<FreeformCharsRest> ::= FreeformChar <FreeformCharsRest> | ε
+<FreeformChar> ::= InputCharacter except LineTerminator
+<BinaryLiteral> ::= "#" NoWhitespace Hexits | "#|" FreeformLiteral | "#" NoWhitespace File
+<TupleLiteral> ::= "(" ExpressionList "," Expression ")" | TypeExpression NoWhitespace ":" "(" <ExpressionList> ")"
+<CollectionLiteral> ::= "[" <ExpressionList> "]" | TypeExpression NoWhitespace ":" "[" <ExpressionList> "]"
+<MapLiteral> ::= "[" <Entries> "]" | TypeExpression NoWhitespace ":" "[" <Entries> "]"
+<Entries> ::= Entry <EntriesRest>
+<EntriesRest> ::= "," Entry <EntriesRest> | ε
+<Entry> ::= Expression "=" Expression
+<VersionLiteral> ::= "Version:" NoWhitespace VersionString | "v:" NoWhitespace VersionString
+<VersionString> ::= NonGASuffix | VersionNumbers NoWhitespace <VersionFinish> NoWhitespace <Build>
+<VersionNumbers> ::= DigitsNoUnderscores <VersionNumbersRest>
+<VersionNumbersRest> ::= NoWhitespace "." NoWhitespace DigitsNoUnderscores <VersionNumbersRest> | ε
+<VersionFinish> ::= "-" NoWhitespace NonGASuffix | "." NoWhitespace NonGASuffix | NonGASuffix
+<NonGASuffix> ::= NonGAPrefix NoWhitespace <NonGAVersion>
+<NonGAVersion> ::= "-" NoWhitespace DigitsNoUnderscores | "." NoWhitespace DigitsNoUnderscores | DigitsNoUnderscores
+<Build> ::= "+" NoWhitespace BuildChars
+<BuildChars> ::= BuildChar <BuildCharsRest>
+<BuildCharsRest> ::= BuildChar <BuildCharsRest> | ε
+<BuildChar> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z" | "-" | "."
+<NonGAPrefix> ::= "dev" | "ci" | "qc" | "alpha" | "beta" | "rc"
+<DateLiteral> ::= "Date:" Digit Digit Digit Digit "-" Digit Digit "-" Digit Digit
+<TimeOfDayLiteral> ::= "TimeOfDay:" Digit Digit ":" Digit Digit <Seconds>
+<Seconds> ::= ":" Digit Digit <SecondsFraction>
+<SecondsFraction> ::= "." NoWhitespace Digits
+<TimeLiteral> ::= "Time:" Digit Digit Digit Digit "-" Digit Digit "-" Digit Digit "T" Digit Digit ":" Digit Digit <Seconds> <TimeZone>
+<TimeZoneLiteral> ::= "TimeZone:" NoWhitespace TimeZone
+<TimeZone> ::= "Z" | "+" NoWhitespace Digit NoWhitespace Digit NoWhitespace <MinutesOffset> | "-" NoWhitespace Digit NoWhitespace Digit NoWhitespace <MinutesOffset>
+<MinutesOffset> ::= ":" NoWhitespace Digit NoWhitespace Digit
+<DurationLiteral> ::= "Duration:P" <YearsDuration> <MonthsDuration> <DaysDuration> <TimeDuration>
+<TimeDuration> ::= "T" NoWhitespace <HoursDuration> NoWhitespace <MinutesDuration> NoWhitespace <SecondsDuration>
+<YearsDuration> ::= DigitsNoUnderscores NoWhitespace "Y"
+<MonthsDuration> ::= DigitsNoUnderscores NoWhitespace "M"
+<DaysDuration> ::= DigitsNoUnderscores NoWhitespace "D"
+<HoursDuration> ::= DigitsNoUnderscores NoWhitespace "H"
+<MinutesDuration> ::= DigitsNoUnderscores NoWhitespace "M"
+<SecondsDuration> ::= DigitsNoUnderscores NoWhitespace "S"
+<PathLiteral> ::= "Path:" NoWhitespace Dir NoWhitespace <PathName>
+<FileLiteral> ::= ["File:"] NoWhitespace File
+<DirectoryLiteral> ::= ["Directory:"] NoWhitespace Dir
+<FileStoreLiteral> ::= "FileStore:" NoWhitespace Dir NoWhitespace <PathName>
+<File> ::= Dir NoWhitespace PathName
+<Dir> ::= "/" NoWhitespace <DirElements> | "./" NoWhitespace <DirElements> | "../" NoWhitespace <DirElements>
+<DirElements> ::= DirElement <DirElementsRest>
+<DirElementsRest> ::= NoWhitespace DirElement <DirElementsRest> | ε
+<DirElement> ::= "../" | PathName NoWhitespace "/"
+<PathName> ::= ["."] NoWhitespace PathNameParts
+<PathNameParts> ::= PathNamePart <PathNamePartsRest>
+<PathNamePartsRest> ::= NoWhitespace PathNameSpecial NoWhitespace PathNamePart <PathNamePartsRest> | ε
+<PathNamePart> ::= IdentifierTrails
+<PathNameSpecial> ::= "." | "-"
+<IdentifierTrails> ::= IdentifierTrail <IdentifierTrailsRest>
+<IdentifierTrailsRest> ::= IdentifierTrail <IdentifierTrailsRest> | ε
+<IdentifierTrail> ::= 
+<TypeExpression> ::= IntersectingTypeExpression
+<ExtendedTypeExpression> ::= ExtendedIntersectingTypeExpression
+<AnyTypeExpression> ::= ExtendedTypeExpression
+<IntersectingTypeExpression> ::= UnionedTypeExpression <IntersectingTypeExpressionRest>
+<IntersectingTypeExpressionRest> ::= "+" UnionedTypeExpression | "-" UnionedTypeExpression <IntersectingTypeExpressionRest> | ε
+<ExtendedIntersectingTypeExpression> ::= ExtendedUnionedTypeExpression <ExtendedIntersectingTypeExpressionRest>
+<ExtendedIntersectingTypeExpressionRest> ::= "+" ExtendedUnionedTypeExpression | "-" ExtendedUnionedTypeExpression <ExtendedIntersectingTypeExpressionRest> | ε
+<UnionedTypeExpression> ::= PrefixTypeExpression <UnionedTypeExpressionRest>
+<UnionedTypeExpressionRest> ::= "|" PrefixTypeExpression <UnionedTypeExpressionRest> | ε
+<ExtendedUnionedTypeExpression> ::= ExtendedPrefixTypeExpression <ExtendedUnionedTypeExpressionRest>
+<ExtendedUnionedTypeExpressionRest> ::= "|" ExtendedPrefixTypeExpression <ExtendedUnionedTypeExpressionRest> | ε
+<PrefixTypeExpression> ::= ["immutable"] <Annotations> PostfixTypeExpression
+<ExtendedPrefixTypeExpression> ::= ["immutable"] <TypeAccessModifier> <Annotations> ExtendedPostfixTypeExpression
+<TypeAccessModifier> ::= "struct" | AccessModifier
+<PostfixTypeExpression> ::= PrimaryTypeExpression <PostfixTypeExpressionRest>
+<PostfixTypeExpressionRest> ::= NoWhitespace "?" | ArrayDims | ArrayIndexes <PostfixTypeExpressionRest> | ε
+<ExtendedPostfixTypeExpression> ::= ExtendedPrimaryTypeExpression <ExtendedPostfixTypeExpressionRest>
+<ExtendedPostfixTypeExpressionRest> ::= NoWhitespace "?" | ArrayDims | ArrayIndexes <ExtendedPostfixTypeExpressionRest> | ε
+<PrimaryTypeExpression> ::= "(" ExtendedTypeExpression ")" | NamedTypeExpression | FunctionTypeExpression
+<ExtendedPrimaryTypeExpression> ::= "(" ExtendedTypeExpression ")" | NamedTypeExpression | FunctionTypeExpression | AnonTypeExpression | "const" | "enum" | "module" | "package" | "service" | "class"
+<NamedTypeExpression> ::= ε <NamedTypeExpressionRest>
+<NamedTypeExpressionRest> ::= Part | "." <Annotations> NamedTypeExpressionPart <NamedTypeExpressionRest> | ε
+<NamedTypeExpressionPart> ::= QualifiedName <NoAutoNarrowModifier> <TypeParameterTypeList> <TypeValueSet>
+<NoAutoNarrowModifier> ::= NoWhitespace "!"
+<TypeValueSet> ::= "{" TypeValueList "}"
+<TypeValueList> ::= TypeValue <TypeValueListRest>
+<TypeValueListRest> ::= "," TypeValue <TypeValueListRest> | ε
+<TypeValue> ::= Expression
+<AnonTypeExpression> ::= "{" NameOrSignatureList ";" "}"
+<NameOrSignatureList> ::= NameOrSignature <NameOrSignatureListRest>
+<NameOrSignatureListRest> ::= ";" NameOrSignature <NameOrSignatureListRest> | ε
+<NameOrSignature> ::= Name | <PropertyModifiers> TypeExpression Name | <MethodModifiers> <TypeParameterList> MethodIdentity ParameterList
+<FunctionTypeExpression> ::= "function" ["conditional"] ReturnList <Name> "(" <TypeExpressionList> ")"

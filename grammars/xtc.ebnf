@@ -5,6 +5,17 @@ Letter
 Digit
     "0".."9"
 
+Digits
+    Digit
+    Digits Digit
+
+DigitsNoUnderscores
+    Digits
+
+# Test
+Whitespace
+    " " | "\t" | "\n" | "\r"
+
 Name
     (<Letter> | "_") (<Letter> | <Digit> | "_")*
 
@@ -511,33 +522,33 @@ SwitchLabel
     "case" CaseOptionList ":"
     "default" ":"
 
-SwitchBlockFinish:
+SwitchBlockFinish
     BreakStatement
     ContinueStatement
 
-BreakStatement:
+BreakStatement
     "break" Name-opt ";"
 
-ContinueStatement:
+ContinueStatement
     "continue" Name-opt ";"
 
-CaseOptionList:
+CaseOptionList
     CaseOption
     CaseOptionList "," CaseOption
 
-CaseOption:
+CaseOption
     "(" CaseExpressionList "," CaseExpression ")"
     SafeCaseExpression
 
-CaseExpressionList:
+CaseExpressionList
     CaseExpression
     CaseExpressionList "," CaseExpression
 
-CaseExpression:
+CaseExpression
     "_"
     Expression
 
-SafeCaseExpression:
+SafeCaseExpression
     "_"
     TernaryExpression
 
@@ -778,16 +789,16 @@ Literal
     DirectoryLiteral
     FileStoreLiteral
 
-TypedNumericLiteral:
+TypedNumericLiteral
     IntTypeName ":" IntLiteral
     FPTypeName ":" FPLiteral
 
-FPLiteral:
+FPLiteral
     IntLiteral
     FPDecimalLiteral
     FPBinaryLiteral
 
-IntTypeName:
+IntTypeName
     "Int"
     "Int8"
     "Int16"
@@ -804,7 +815,7 @@ IntTypeName:
     "UInt128"
     "UIntN"
 
-FPTypeName:
+FPTypeName
     "Dec"
     "Dec32"
     "Dec64"
@@ -880,7 +891,7 @@ VersionNumbers
     DigitsNoUnderscores
     VersionNumbers NoWhitespace "." NoWhitespace DigitsNoUnderscores
 
-VersionFinish:
+VersionFinish
      "-" NoWhitespace NonGASuffix
      "." NoWhitespace NonGASuffix
      NonGASuffix
@@ -907,7 +918,7 @@ BuildChar
     "-"
     "."
 
-NonGAPrefix:
+NonGAPrefix
     "dev"
     "ci"
     "qc"
