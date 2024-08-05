@@ -8,13 +8,47 @@ import org.xtclang.lsp.client.XtcLanguageClient;
 import static org.xtclang.utilities.StringUtils.join;
 import static org.xtclang.utilities.StringUtils.split;
 
-import org.apache.commons.text.WordUtils;
+import java.util.concurrent.CompletableFuture;
 
-public class XtcLanguageServer {
+import org.apache.commons.text.WordUtils;
+import org.eclipse.lsp4j.InitializeParams;
+import org.eclipse.lsp4j.InitializeResult;
+import org.eclipse.lsp4j.services.LanguageServer;
+import org.eclipse.lsp4j.services.TextDocumentService;
+import org.eclipse.lsp4j.services.WorkspaceService;
+
+public final class XtcLanguageServer implements LanguageServer {
     public static void main(String[] args) {
         XtcLanguageClient tokens;
         tokens = split(MessageUtils.getMessage());
         String result = join(tokens);
         System.out.println(WordUtils.capitalize(result));
+    }
+
+    @Override
+    public CompletableFuture<InitializeResult> initialize(InitializeParams initializeParams) {
+        System.err.println("Initialize: " + initializeParams);
+        return null;
+    }
+
+    @Override
+    public CompletableFuture<Object> shutdown() {
+        System.err.println("Shutdown");
+        return null;
+    }
+
+    @Override
+    public void exit() {
+        System.err.println("Exit");
+    }
+
+    @Override
+    public TextDocumentService getTextDocumentService() {
+        return null;
+    }
+
+    @Override
+    public WorkspaceService getWorkspaceService() {
+        return null;
     }
 }

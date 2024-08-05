@@ -1,3 +1,25 @@
+*
+*
+*
+
+Mandatory capabilites for client:
+* didOpen
+* didChange
+* didClose
+
+* Request: initialize capability
+
+LangaugeServer
+  initialize
+  initlalized
+  ..
+
+  LanguageServer
+    WorkspaceService
+    TxtDocumentServer
+
+
+
 <dependencies>
     <dependency>
         <groupId>org.eclipse.lsp4j</groupId>
