@@ -16,5 +16,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.xtclang.app.App"
+    mainClass = "org.xtclang.lsp.server.XtcLanguageServer"
 }
