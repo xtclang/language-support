@@ -1,5 +1,19 @@
 import re
 
+whitespace_chars = None
+no_whitespace_chars = None
+
+def is_whitespace(i) -> bool:
+    global whitespace_chars, no_whitespace_chars
+
+    if whitespace_chars is None:
+        whitespace_chars = [chr(i) for i in range(0x110000) if chr(i).isspace()]
+        no_whitespace_chars = [chr(i) for i in range(0x110000) if not chr(i).isspace()]
+        print(whitespace_chars)
+        print(f"Total whitespace characters: {len(whitespace_chars)}")
+        #print(no_whitespace_chars)
+        print(f"Total non-whitespace characters: {len(no_whitespace_chars)}")
+
 def expand_ranges(production, allow_ranges=False):
     def range_expansion(match):
         start, end = match.group(1), match.group(2)
@@ -7,9 +21,18 @@ def expand_ranges(production, allow_ranges=False):
     assert not allow_ranges
     return re.sub(r'"(.)"\.\."(.)"', range_expansion, production)
 
+def replace_token(text: str, token: str, new_token: str = '', prune_multiple_space: bool = True):
+    ''' Replace a token/substring in a string, and ensure that there are no multiple whitespaces left around it (and everywhere else '''
+    new_text = text.replace(token, new_token)
+    return re.sub(r'\s+', ' ', new_text) if prune_multiple_space else new_text
+
 def convert_to_bnf_with_optional_and_transform_left_recursion(content):
-    # strip whitespace
+    # strip leading and trailing whitespace
     content = content.strip()
+
+    # remove the NoWhitespace token, which hopefully can just be replace by 'nothing' in real BNF.
+    content = replace_token(content, 'NoWhiteSpaces')
+
     lines = [line.strip() for line in content.split('\n')]
 
     # strip comments
@@ -18,6 +41,7 @@ def convert_to_bnf_with_optional_and_transform_left_recursion(content):
     rules = []
     current_rule = []
 
+    # TODO: This is pretty horrible. It would likely be better if we had a colon at the end of the token defintions
     for line in lines:
         if line:
             current_rule.append(line)
@@ -28,6 +52,9 @@ def convert_to_bnf_with_optional_and_transform_left_recursion(content):
 
     if current_rule:
         rules.append('\n'.join(current_rule))
+
+    # insert special roles.
+    ## rule_nowhitespace = ['NoWhiteSpaces\n']
 
     rule_dict = {}
     for rule in rules:
