@@ -42,7 +42,7 @@ Annotations
     Annotations Annotation
 
 Annotation
-    "@" NoWhitespace NamedTypeExpression NoWhitespace ArgumentList-opt
+    "@" NoWhitespace NamedTypeExpression NoWhitespace [ArgumentList]
 
 ParameterList
     "(" Parameters ")"
@@ -52,20 +52,20 @@ Parameters
     Parameters "," Parameter
 
 Parameter
-    TypeExpression Name DefaultValue-opt
+    TypeExpression Name [DefaultValue]
 
 DefaultValue
     "=" Expression
 
 ArgumentList
-    "(" Arguments-opt ")"
+    "(" [Arguments] ")"
 
 Arguments
     Argument
     Arguments "," Argument
 
 Argument
-    NamedArgument-opt ArgumentExpression
+    [NamedArgument] ArgumentExpression
 
 ArgumentExpression
     "_"
@@ -83,7 +83,7 @@ TypeParameters
     TypeParameters "," TypeParameter
 
 TypeParameter
-    Name TypeParameterConstraint-opt
+    Name [TypeParameterConstraint]
 
 TypeParameterConstraint
     "extends" ExtendedTypeExpression
@@ -100,14 +100,14 @@ TypeExpressionListElement
     ExtendedTypeExpression
 
 CompilationUnit
-	ImportStatements-opt TypeCompositionStatement
+	[ImportStatements] TypeCompositionStatement
 
 ImportStatements
 	ImportStatement
 	ImportStatements ImportStatement
 
 TypeCompositionStatement
-    Modifiers-opt Category QualifiedName TypeParameterList-opt ParameterList-opt Compositions-opt TypeCompositionBody
+    [Modifiers] Category QualifiedName [TypeParameterList] [ParameterList] [Compositions] TypeCompositionBody
 
 Category
     "module"
@@ -128,7 +128,7 @@ ConditionalComposition
     Composition
 
 IfComposition
-    "if" "(" Expression ")" "{" Compositions "}" ElseComposition-opt
+    "if" "(" Expression ")" "{" Compositions "}" [ElseComposition]
 
 ElseComposition
     "else" IfComposition
@@ -140,7 +140,7 @@ Composition
     "delegates" DelegatesList
     "incorporates" IncorporatesList
     "into" AnyTypeExpression
-    "import" ImportModifier-opt QualifiedName VersionRequirement-opt ResourceProvider-opt
+    "import" [ImportModifier] QualifiedName [VersionRequirement] [ResourceProvider]
     "default" "(" Expression ")"
 
 ExtendsList
@@ -148,7 +148,7 @@ ExtendsList
     ExtendsList "," ExtendsSingle
 
 ExtendsSingle
-    TypeExpression ArgumentList-opt
+    TypeExpression [ArgumentList]
 
 ImplementsList
     ImplementsSingle
@@ -169,8 +169,8 @@ IncorporatesList
     IncorporatesList "," IncorporatesSingle
 
 IncorporatesSingle
-    "conditional" QualifiedName TypeParameterList ArgumentList-opt
-    TypeExpression ArgumentList-opt
+    "conditional" QualifiedName TypeParameterList [ArgumentList]
+    TypeExpression [ArgumentList]
 
 ImportModifier
     "embedded"
@@ -179,7 +179,7 @@ ImportModifier
     "optional"
 
 VersionRequirement
-    Version VersionOverrides-opt
+    Version [VersionOverrides]
 
 VersionOverrides
     VersionOverride
@@ -201,13 +201,13 @@ Version
     VersionLiteral
 
 ResourceProvider
-    ResourceList-opt "using" NamedTypeExpression
+    [ResourceList] "using" NamedTypeExpression
 
 ResourceList
-    "inject" "(" ResourceListContents-opt ")"
+    "inject" "(" [ResourceListContents] ")"
 
 ResourceListContents
-    Resources ","-opt
+    Resources [","]
 
 Resources
     Resource
@@ -226,7 +226,7 @@ TypeCompositionBody
     ";"
 
 EnumBody
-    Enums EnumBodyFinish-opt
+    Enums [EnumBodyFinish]
 
 Enums
     Enum
@@ -236,7 +236,7 @@ EnumBodyFinish
     ";" TypeCompositionComponents
 
 Enum
-    Annotations-opt Name TypeParameterTypeList-opt ArgumentList-opt TypeCompositionBody-opt
+    [Annotations] Name [TypeParameterTypeList] [ArgumentList] [TypeCompositionBody]
 
 TypeCompositionComponents
     ConditionalTypeCompositionComponent
@@ -247,21 +247,21 @@ ConditionalTypeCompositionComponent
     TypeCompositionComponent
 
 IfTypeCompositionComponent
-    "if" "(" Expression ")" "{" TypeCompositionComponents "}" ElseTypeCompositionComponent-opt
+    "if" "(" Expression ")" "{" TypeCompositionComponents "}" [ElseTypeCompositionComponent]
 
 ElseTypeCompositionComponent
     "else" IfTypeCompositionComponent
     "else" "{" TypeCompositionComponents "}"
 
 TypeCompositionComponent
-    AccessModifier-opt TypeDefStatement
+    [AccessModifier] TypeDefStatement
     ImportStatement
     TypeCompositionStatement
     PropertyDeclarationStatement
     MethodDeclarationStatement
 
 PropertyDeclarationStatement
-    PropertyModifiers-opt TypeExpression Name PropertyDeclarationFinish
+    [PropertyModifiers] TypeExpression Name PropertyDeclarationFinish
 
 PropertyModifiers
     PropertyModifier
@@ -279,14 +279,14 @@ PropertyAccessModifier
 PropertyDeclarationFinish
     ";"
     PropertyDeclarationInitialValue
-    "." Name Parameters MethodBody PropertyDeclarationInitialValue-opt
-    TypeCompositionBody PropertyDeclarationInitialValue-opt
+    "." Name Parameters MethodBody [PropertyDeclarationInitialValue]
+    TypeCompositionBody [PropertyDeclarationInitialValue]
 
 PropertyDeclarationInitialValue
     "=" Expression ";"
 
 MethodDeclarationStatement
-    MethodModifiers-opt TypeParameterList-opt MethodIdentity ParameterList MethodDeclarationFinish
+    [MethodModifiers] [TypeParameterList] MethodIdentity ParameterList MethodDeclarationFinish
 
 MethodModifiers
     MethodModifier
@@ -298,7 +298,7 @@ MethodModifier
 
 MethodIdentity
     "construct"
-    "conditional"-opt ReturnList Name RedundantReturnSpecifier-opt
+    ["conditional"] ReturnList Name [RedundantReturnSpecifier]
 
 ReturnList
     "void"
@@ -313,7 +313,7 @@ MultiReturnList
     MultiReturnList "," MultiReturn
 
 MultiReturn
-    TypeExpression Name-opt
+    TypeExpression [Name]
 
 RedundantReturnSpecifier
     "<" TypeExpressionList ">"
@@ -354,7 +354,7 @@ Statements
     Statements Statement
 
 VariableDeclaration
-    VariableTypeExpression Name VariableInitializerFinish-opt
+    VariableTypeExpression Name [VariableInitializerFinish]
     "(" OptionalDeclarationList "," OptionalDeclaration ")" "=" Expression
 
 VariableInitializerFinish
@@ -412,7 +412,7 @@ LabeledStatement
     Name ":" Whitespace Statement
 
 AssertStatement
-    AssertInstruction ConditionList-opt AssertMessage-opt ";"
+    AssertInstruction [ConditionList] [AssertMessage] ";"
 
 AssertInstruction
     "assert"
@@ -431,7 +431,7 @@ ForStatement
     "for" "(" ForCondition ")" StatementBlock
 
 ForCondition
-    VariableInitializationList-opt ";" ConditionList-opt ";" VariableModificationList-opt
+    [VariableInitializationList] ";" [ConditionList] ";" [VariableModificationList]
     OptionalDeclaration ":" Expression
     "(" OptionalDeclarationList "," OptionalDeclaration ")" ":" Expression
 
@@ -452,7 +452,7 @@ VariableModification
     Expression
 
 IfStatement
-    "if" "(" ConditionList ")" StatementBlock ElseStatement-opt
+    "if" "(" ConditionList ")" StatementBlock [ElseStatement]
 
 ElseStatement
     "else" IfStatement
@@ -490,7 +490,7 @@ ImportFinish
     NoWhitespace ".*" ";"
 
 ReturnStatement
-    "return" ReturnValue-opt ";"
+    "return" [ReturnValue] ";"
 
 ReturnValue
     TupleLiteral
@@ -512,7 +512,7 @@ SwitchBlocks
     SwitchBlocks SwitchBlock
 
 SwitchBlock
-    SwitchLabels Statements SwitchBlockFinish-opt
+    SwitchLabels Statements [SwitchBlockFinish]
 
 SwitchLabels
     SwitchLabel
@@ -527,7 +527,7 @@ SwitchBlockFinish
     ContinueStatement
 
 BreakStatement
-    "break" Name-opt ";"
+    "break" [Name] ";"
 
 ContinueStatement
     "continue" [Name] ";"
@@ -553,14 +553,14 @@ SafeCaseExpression
     TernaryExpression
 
 TryStatement
-    "try" TryResources-opt StatementBlock TryFinish
+    "try" [TryResources] StatementBlock TryFinish
 
 TryResources
     "(" VariableInitializationList ")"
 
 TryFinish
     Catches
-    Catches-opt "finally" StatementBlock
+    [Catches] "finally" StatementBlock
 
 Catches
     Catch
@@ -663,17 +663,17 @@ PostfixExpression
     PrimaryExpression
     PostfixExpression "++"
     PostfixExpression "--"
-    PostfixExpression "(" Arguments-opt ")"
+    PostfixExpression "(" [Arguments] ")"
     PostfixExpression ArrayDims
     PostfixExpression ArrayIndexes
     PostfixExpression NoWhitespace "?"
-    PostfixExpression "." "&"-opt DotNameFinish
+    PostfixExpression "." ["&"] DotNameFinish
     PostfixExpression ".new" NewFinish
     PostfixExpression ".as" "(" AnyTypeExpression ")"
     PostfixExpression ".is" "(" AnyTypeExpression ")"
 
 ArrayDims
-    "[" DimIndicators-opt "]"
+    "[" [DimIndicators] "]"
 
 DimIndicators
     DimIndicator
@@ -690,21 +690,21 @@ ExpressionList
     ExpressionList "," Expression
 
 DotNameFinish
-    Name TypeParameterTypeList-opt
+    Name [TypeParameterTypeList]
     "default"
 
 NewFinish
-    TypeExpression NewArguments AnonClassBody-opt
+    TypeExpression NewArguments [AnonClassBody]
     ArgumentList
 
 NewArguments
-    ArrayIndexes ArgumentList-opt
+    ArrayIndexes [ArgumentList]
     ArgumentList
 
 PrimaryExpression
     "(" Expression ")"
     "new" NewFinish
-    "&"-opt "construct"-opt QualifiedName TypeParameterTypeList-opt
+    ["&"] ["construct"] QualifiedName [TypeParameterTypeList]
     StatementExpression
     SwitchExpression
     LambdaExpression
@@ -717,11 +717,11 @@ AnonClassBody
 StatementExpression
     StatementBlock
     "throw" TernaryExpression
-    "TODO" TodoFinish-opt
+    "TODO" [TodoFinish]
     "assert"
 
 SwitchExpression
-    "switch" "(" SwitchCondition-opt ")" "{" SwitchExpressionBlocks "}"
+    "switch" "(" [SwitchCondition] ")" "{" SwitchExpressionBlocks "}"
 
 SwitchExpressionBlocks
     SwitchExpressionBlock
@@ -765,7 +765,7 @@ LambdaBody
 
 TodoFinish
     InputCharacter-not-"(" InputCharacters LineTerminator
-    NoWhitespace "(" Expression-opt ")"
+    NoWhitespace "(" [Expression] ")"
 
 Literal
     TypedNumericLiteral
@@ -831,21 +831,21 @@ FPTypeName
     "FloatN"
 
 StringLiteral
-    '"' CharacterString-opt '"'
-    '$"' CharacterString-opt '"'
+    '"' [CharacterString] '"'
+    '$"' [CharacterString] '"'
     "\|" FreeformLiteral
     "$|" FreeformLiteral
     "$" NoWhitespace File
 
 FreeformLiteral
-    FreeformChars LineTerminator FreeformLines-opt
+    FreeformChars LineTerminator [FreeformLines]
 
 FreeformLines
     FreeformLine
     FreeformLines FreeformLine
 
 FreeformLine
-    Whitespace-opt "|" FreeformChars LineTerminator
+    [Whitespace] "|" FreeformChars LineTerminator
 
 FreeformChars
     FreeformChar
@@ -861,16 +861,15 @@ BinaryLiteral
 
 TupleLiteral
     "(" ExpressionList "," Expression ")"
-    TypeExpression NoWhitespace ":" "(" ExpressionList-opt ")"
-
+    TypeExpression NoWhitespace ":" "(" [ExpressionList] ")"
 
 CollectionLiteral
-    "[" ExpressionList-opt "]"
-    TypeExpression NoWhitespace ":" "[" ExpressionList-opt "]"
+    "[" [ExpressionList] "]"
+    TypeExpression NoWhitespace ":" "[" [ExpressionList] "]"
 
 MapLiteral
-    "[" Entries-opt "]"
-    TypeExpression NoWhitespace ":" "[" Entries-opt "]"
+    "[" [Entries] "]"
+    TypeExpression NoWhitespace ":" "[" [Entries] "]"
 
 Entries
     Entry
@@ -885,7 +884,7 @@ VersionLiteral
 
 VersionString
     NonGASuffix
-    VersionNumbers NoWhitespace VersionFinish-opt NoWhitespace Build-opt
+    VersionNumbers NoWhitespace [VersionFinish] NoWhitespace [Build]
 
 VersionNumbers
     DigitsNoUnderscores
@@ -897,7 +896,7 @@ VersionFinish
      NonGASuffix
 
 NonGASuffix
-      NonGAPrefix NoWhitespace NonGAVersion-opt
+      NonGAPrefix NoWhitespace [NonGAVersion]
 
 NonGAVersion
     "-" NoWhitespace DigitsNoUnderscores
@@ -930,33 +929,33 @@ DateLiteral
     "Date:" Digit Digit Digit Digit "-" Digit Digit "-" Digit Digit
 
 TimeOfDayLiteral
-    "TimeOfDay:" Digit Digit ":" Digit Digit Seconds-opt
+    "TimeOfDay:" Digit Digit ":" Digit Digit [Seconds]
 
 Seconds
-     ":" Digit Digit SecondsFraction-opt
+     ":" Digit Digit [SecondsFraction]
 
 SecondsFraction
      "." NoWhitespace Digits
 
 TimeLiteral
-    "Time:" Digit Digit Digit Digit "-" Digit Digit "-" Digit Digit "T" Digit Digit ":" Digit Digit Seconds-opt TimeZone-opt
+    "Time:" Digit Digit Digit Digit "-" Digit Digit "-" Digit Digit "T" Digit Digit ":" Digit Digit [Seconds] [TimeZone]
 
 TimeZoneLiteral
     "TimeZone:" NoWhitespace TimeZone
 
 TimeZone
     "Z"
-    "+" NoWhitespace Digit NoWhitespace Digit NoWhitespace MinutesOffset-opt
-    "-" NoWhitespace Digit NoWhitespace Digit NoWhitespace MinutesOffset-opt
+    "+" NoWhitespace Digit NoWhitespace Digit NoWhitespace [MinutesOffset]
+    "-" NoWhitespace Digit NoWhitespace Digit NoWhitespace [MinutesOffset]
 
 MinutesOffset
     ":" NoWhitespace Digit NoWhitespace Digit
 
 DurationLiteral
-    "Duration:P" YearsDuration-opt MonthsDuration-opt DaysDuration-opt TimeDuration-opt
+    "Duration:P" [YearsDuration] [MonthsDuration] [DaysDuration] [TimeDuration]
 
 TimeDuration
-     "T" NoWhitespace HoursDuration-opt NoWhitespace MinutesDuration-opt NoWhitespace SecondsDuration-opt
+     "T" NoWhitespace [HoursDuration] NoWhitespace [MinutesDuration] NoWhitespace [SecondsDuration]
 
 YearsDuration
     DigitsNoUnderscores NoWhitespace "Y"
@@ -977,24 +976,24 @@ SecondsDuration
     DigitsNoUnderscores NoWhitespace "S"
 
 PathLiteral
-    "Path:" NoWhitespace Dir NoWhitespace PathName-opt
+    "Path:" NoWhitespace Dir NoWhitespace [PathName]
 
 FileLiteral
-    "File:"-opt NoWhitespace File
+    ["File:"] NoWhitespace File
 
 DirectoryLiteral
-    "Directory:"-opt NoWhitespace Dir
+    ["Directory:"] NoWhitespace Dir
 
 FileStoreLiteral
-    "FileStore:" NoWhitespace Dir NoWhitespace PathName-opt
+    "FileStore:" NoWhitespace Dir NoWhitespace [PathName]
 
 File
     Dir NoWhitespace PathName
 
 Dir
-    "/" NoWhitespace DirElements-opt
-    "./" NoWhitespace DirElements-opt
-    "../" NoWhitespace DirElements-opt
+    "/" NoWhitespace [DirElements]
+    "./" NoWhitespace [DirElements]
+    "../" NoWhitespace [DirElements]
 
 DirElements
     DirElement
@@ -1005,7 +1004,7 @@ DirElement
     PathName NoWhitespace "/"
 
 PathName
-    "."-opt NoWhitespace PathNameParts
+    ["."] NoWhitespace PathNameParts
 
 PathNameParts
     PathNamePart
@@ -1052,10 +1051,10 @@ ExtendedUnionedTypeExpression
     ExtendedUnionedTypeExpression "|" ExtendedPrefixTypeExpression
 
 PrefixTypeExpression
-    "immutable"-opt Annotations-opt PostfixTypeExpression
+    ["immutable"] [Annotations] PostfixTypeExpression
 
 ExtendedPrefixTypeExpression
-    "immutable"-opt TypeAccessModifier-opt Annotations-opt ExtendedPostfixTypeExpression
+    ["immutable"] [TypeAccessModifier] [Annotations] ExtendedPostfixTypeExpression
 
 TypeAccessModifier
     "struct"
@@ -1092,10 +1091,10 @@ ExtendedPrimaryTypeExpression
 
 NamedTypeExpression
     NamedTypeExpressionPart
-    NamedTypeExpression "." Annotations-opt NamedTypeExpressionPart
+    NamedTypeExpression "." [Annotations] NamedTypeExpressionPart
 
 NamedTypeExpressionPart
-    QualifiedName NoAutoNarrowModifier-opt TypeParameterTypeList-opt TypeValueSet-opt
+    QualifiedName [NoAutoNarrowModifier] [TypeParameterTypeList] [TypeValueSet]
 
 NoAutoNarrowModifier
     NoWhitespace "!"
@@ -1119,8 +1118,8 @@ NameOrSignatureList
 
 NameOrSignature
     Name
-    PropertyModifiers-opt TypeExpression Name
-    MethodModifiers-opt TypeParameterList-opt MethodIdentity ParameterList
+    [PropertyModifiers] TypeExpression Name
+    [MethodModifiers] [TypeParameterList] MethodIdentity ParameterList
 
 FunctionTypeExpression
-    "function" "conditional"-opt ReturnList Name-opt "(" TypeExpressionList-opt ")"
+    "function" ["conditional"] ReturnList [Name] "(" [TypeExpressionList] ")"
