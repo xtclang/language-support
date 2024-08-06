@@ -1,3 +1,8 @@
+#
+# This should be a complete XTC grammar en EBNF form. It should successfully validate any XTC code given.
+# TODO: There should be unit tests for this on the existing XTC corpus.
+#
+
 Letter
     "A".."Z"
     "a".."z"
@@ -12,9 +17,45 @@ Digits
 DigitsNoUnderscores
     Digits
 
-# Test
 Whitespace
-    "\t" | "\n" | "\x0b" | "\x0c" | "\r" | "\x1c" | "\x1d" | "\x1e" | "\x1f" | " " | "\x85" | "\xa0" | "\u1680" | "\u2000" | "\u2001" | "\u2002" | "\u2003" | "\u2004" | "\u2005" | "\u2006" | "\u2007" | "\u2008" | "\u2009" | "\u200a" | "\u2028" | "\u2029" | "\u202f" | "\u205f" | "\u3000"
+    "\t"
+    "\n"
+    "\x0b"
+    "\x0c"
+    "\r"
+    "\x1c"
+    "\x1d"
+    "\x1e"
+    "\x1f"
+    " "
+    "\x85"
+    "\xa0"
+    "\u1680"
+    "\u2000"
+    "\u2001"
+    "\u2002"
+    "\u2003"
+    "\u2004"
+    "\u2005"
+    "\u2006"
+    "\u2007"
+    "\u2008"
+    "\u2009"
+    "\u200a"
+    "\u2028"
+    "\u2029"
+    "\u202f"
+    "\u205f"
+    "\u3000"
+
+LineTerminator
+    "\u000a"
+    "\u000b"
+    "\u000c"
+    "\u000d" ["\u000a"]
+    "\u0085"
+    "\u2028"
+    "\u2029"
 
 Name
     (<Letter> | "_") (<Letter> | <Digit> | "_")*
@@ -769,7 +810,7 @@ TodoFinish
 
 Literal
     TypedNumericLiteral
-    IntLiteral
+    IntegerLiteral
     FPDecimalLiteral
     FPBinaryLiteral
     CharLiteral
@@ -790,11 +831,11 @@ Literal
     FileStoreLiteral
 
 TypedNumericLiteral
-    IntTypeName ":" IntLiteral
+    IntTypeName ":" IntegerLiteral
     FPTypeName ":" FPLiteral
 
 FPLiteral
-    IntLiteral
+    IntegerLiteral
     FPDecimalLiteral
     FPBinaryLiteral
 
@@ -1123,3 +1164,124 @@ NameOrSignature
 
 FunctionTypeExpression
     "function" ["conditional"] ReturnList [Name] "(" [TypeExpressionList] ")"
+
+NumericLiteral
+    IntegerLiteral
+    FloatingPointLiteral
+
+IntegerLiteral
+    [Sign] UnsignedIntegerLiteral
+
+Sign
+    "+"
+    "-"
+
+UnsignedIntegerLiteral
+    BitLiteral
+    OctalLiteral
+    DigitLiteral
+    HexitLiteral
+
+BitLiteral
+    0 BinaryIndicator Bits
+
+BinaryIndicator
+    "B"
+    "b"
+
+Bits
+    Bit [BitsOrUnderscores]
+
+Bit
+    "0"
+    "1"
+
+BitsOrUnderscores
+    BitOrUnderscore
+    BitsOrUnderscores BitOrUnderscore
+
+BitOrUnderscore
+    Bit
+    "_"
+
+OctalLiteral
+    "0" "o" Octals
+
+Octals
+    Octal [OctalsOrUnderscores]
+
+Octal
+    "0".."7"
+
+OctalsOrUnderscores
+    OctalOrUnderscore
+    OctalsOrUnderscores OctalOrUnderscore
+
+OctalOrUnderscore
+    Octal
+    "_"
+
+DigitLiteral
+    Digits
+
+Digits
+    Digit [DigitsOrUnderscores]
+
+Digit
+    "0".."9"
+
+DigitsOrUnderscores
+    DigitOrUnderscore
+    DigitsOrUnderscores DigitOrUnderscore
+
+DigitOrUnderscore
+    Digit
+    "_"
+
+HexitLiteral
+    "0" HexIndicator Hexits
+
+HexIndicator
+    "X"
+    "x"
+
+Hexits
+    Hexit [HexitsOrUnderscores]
+
+Hexit
+    "0".."9"
+    "A".."F"
+    "a".."f"
+
+HexitsOrUnderscores
+    HexitOrUnderscore
+    HexitsOrUnderscores HexitOrUnderscore
+
+HexitOrUnderscore
+    Hexit
+    "_"
+
+FloatingPointLiteral
+    IntegerLiteral Exponent
+    [Sign] FractionalLiteral [Exponent]
+
+FractionalLiteral
+    "0" BinaryIndicator [Bits] "." Bits
+    "0" "o" [Octals] "." Octals
+    [Digits] "." Digits
+    "0" HexIndicator [Hexits] "." Hexits
+
+Exponent
+    ExponentIndicator IntegerLiteral
+
+ExponentIndicator
+    DecimalExponentIndicator
+    BinaryExponentIndicator
+
+DecimalExponentIndicator
+    "E"
+    "e"
+
+BinaryExponentIndicator
+    "P"
+    "p"

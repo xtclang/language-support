@@ -1,18 +1,16 @@
 import re
 
-whitespace_chars = None
-no_whitespace_chars = None
+# Unicode these days is 0 to 0x10FFFF
+#MAX_UNICODE = 0x10000 # TODO: should really be 0x110000
+MAX_UNICODE = 0x100 # TODO: should really be 0x110000
 
-def is_whitespace(i) -> bool:
-    global whitespace_chars, no_whitespace_chars
+def get_charsets() -> tuple[str, str]:
+    whitespace_chars = [chr(i) for i in range(MAX_UNICODE) if chr(i).isspace()]
+    no_whitespace_chars = [chr(i) for i in range(MAX_UNICODE) if not chr(i).isspace()]
+    return whitespace_chars, no_whitespace_chars
 
-    if whitespace_chars is None:
-        whitespace_chars = [chr(i) for i in range(0x110000) if chr(i).isspace()]
-        no_whitespace_chars = [chr(i) for i in range(0x110000) if not chr(i).isspace()]
-        print(whitespace_chars)
-        print(f"Total whitespace characters: {len(whitespace_chars)}")
-        #print(no_whitespace_chars)
-        print(f"Total non-whitespace characters: {len(no_whitespace_chars)}")
+def is_whitespace(i, whitespace_chars=get_charsets()[0]) -> bool:
+    return chr(i) in whitespace_chars
 
 def expand_ranges(production, allow_ranges=False):
     def range_expansion(match):
@@ -26,18 +24,51 @@ def replace_token(text: str, token: str, new_token: str = '', prune_multiple_spa
     new_text = text.replace(token, new_token)
     return re.sub(r'\s+', ' ', new_text) if prune_multiple_space else new_text
 
-def convert_to_bnf_with_optional_and_transform_left_recursion(content):
+def surround_with_brackets(text, strings):
+    def replace_match(match):
+        matched_text = match.group(0)
+        # Check if the matched text is already surrounded by <>
+        if matched_text.startswith('<') and matched_text.endswith('>'):
+            return matched_text
+        else:
+            return f'<{matched_text}>'
+
+    for string in strings:
+        # Create a regex pattern to find full-word occurrences of the string not already surrounded by <>
+        pattern = re.compile(rf'\b(?<!<){re.escape(string)}(?!>)\b')
+        # Replace using the replace_match function
+        text = pattern.sub(replace_match, text)
+
+    return text
+
+def pad_to_unicode(number):
+    if not (0 <= number <= 0xFFFF):
+        raise ValueError("Number must be in the range 0 to 65535 (0x0000 to 0xFFFF).")
+    return f"\\\\u{number:04x}"
+
+def get_nowhitespace_values() -> list[str]:
+    ws, nws = get_charsets()
+    total = len(ws) + len(nws)
+    print(f'Created whitespace list of {len(ws)} unicode characters')
+    print(f'Created non whitespace list of {len(nws)} unicode characters')
+    print(f'Total: {total} unicode characters')
+    assert total == MAX_UNICODE
+    unicode = []
+    for c in nws:
+        unicode.append(f'"{pad_to_unicode(ord(c))}"')
+    return unicode
+
+def convert_to_bnf_with_optional_and_transform_left_recursion(content: str) -> str:
     # strip leading and trailing whitespace
     content = content.strip()
-
-    # remove the NoWhitespace token, which hopefully can just be replace by 'nothing' in real BNF.
-    content = replace_token(content, 'NoWhiteSpaces')
-
     lines = [line.strip() for line in content.split('\n')]
+    line_count = len(lines)
 
     # strip comments
     lines = [line for line in lines if not line.startswith('#')]
+    uncommented_line_count = len(lines)
 
+    print(f'Non-comment lines in grammar {uncommented_line_count} (total: {line_count})')
     rules = []
     current_rule = []
 
@@ -53,9 +84,6 @@ def convert_to_bnf_with_optional_and_transform_left_recursion(content):
     if current_rule:
         rules.append('\n'.join(current_rule))
 
-    # insert special roles.
-    ## rule_nowhitespace = ['NoWhiteSpaces\n']
-
     rule_dict = {}
     for rule in rules:
         lines = rule.split('\n')
@@ -65,6 +93,9 @@ def convert_to_bnf_with_optional_and_transform_left_recursion(content):
             rule_dict[header].extend(productions)
         else:
             rule_dict[header] = productions
+
+    rule_dict['NoWhitespace'] = get_nowhitespace_values()
+    rule_dict = dict(sorted(rule_dict.items()))
 
     bnf_rules = []
     for header, productions in rule_dict.items():
@@ -91,7 +122,15 @@ def convert_to_bnf_with_optional_and_transform_left_recursion(content):
             bnf_productions = " | ".join(non_recursive)
             bnf_rules.append(f'<{header}> ::= {bnf_productions}')
 
-    return '\n'.join(bnf_rules)
+    grammar = '\n'.join(bnf_rules) + '\n'
+
+    # Replace all headers (token names) on the rhs with <header>, if not already the case.
+    headers = list(rule_dict.keys())
+    grammar = surround_with_brackets(grammar, headers)
+
+    # Add primitive NoWhiteSpace rule in EBNF form, which seems to be unable to supply unicode ranges.
+
+    return grammar
 
 def convert_ebnf_to_bnf(input_file_path, output_file_path):
     with open(input_file_path, 'r') as file:
