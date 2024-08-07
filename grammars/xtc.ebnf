@@ -804,8 +804,24 @@ LambdaBody
     Expression
     StatementBlock
 
+InputCharacter
+    RawCharacter except LineTerminator
+
+InputCharacters
+    InputCharacter
+    InputCharacters InputCharacter
+
+RawCharacters
+    RawCharacter
+    RawCharacters RawCharacter
+
+# TODO Any legal unicode code point except BeginningOfFile or EndOfFile
+RawCharacter
+    NoWhitespace
+    Whitespace
+
 TodoFinish
-    InputCharacter-not-"(" InputCharacters LineTerminator
+    (InputCharacter except "(") InputCharacters LineTerminator
     NoWhitespace "(" [Expression] ")"
 
 Literal
@@ -829,6 +845,23 @@ Literal
     FileLiteral
     DirectoryLiteral
     FileStoreLiteral
+
+CharLiteral
+    "'" SingleCharacter "'"
+
+SingleCharacter
+    InputCharacter except \ or '
+    CharacterEscape
+
+# TODO: Do these need extra escape backslashes?
+CharacterEscape
+    "\\"
+    "\"
+    "\b"
+    "\f"
+    "\n"
+    "\r"
+    "\t"
 
 TypedNumericLiteral
     IntTypeName ":" IntegerLiteral
@@ -878,6 +911,14 @@ StringLiteral
     "$|" FreeformLiteral
     "$" NoWhitespace File
 
+CharacterString
+    StringCharacter
+    CharacterString StringCharacter
+
+StringCharacter
+    InputCharacter except \ or "
+    CharacterEscape
+
 FreeformLiteral
     FreeformChars LineTerminator [FreeformLines]
 
@@ -911,6 +952,12 @@ CollectionLiteral
 MapLiteral
     "[" [Entries] "]"
     TypeExpression NoWhitespace ":" "[" [Entries] "]"
+
+# TODO: ExpressionList should probably also be OK as empty
+ListLiteral
+    "[" "]"
+    "[" [ExpressionList] "]"
+    TypeExpression NoWhitespace ":" "[" [ExpressionList] "]"
 
 Entries
     Entry
@@ -1182,8 +1229,13 @@ UnsignedIntegerLiteral
     DigitLiteral
     HexitLiteral
 
+Indicator
+    BinaryIndicator
+    HexIndicator
+    OctalIndicator
+
 BitLiteral
-    0 BinaryIndicator Bits
+    "0" BinaryIndicator Bits
 
 BinaryIndicator
     "B"
@@ -1205,7 +1257,11 @@ BitOrUnderscore
     "_"
 
 OctalLiteral
-    "0" "o" Octals
+    "0" OctalIndicator Octals
+
+OctalIndicator
+    "O"
+    "o"
 
 Octals
     Octal [OctalsOrUnderscores]

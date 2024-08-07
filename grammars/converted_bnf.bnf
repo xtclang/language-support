@@ -30,7 +30,7 @@
 <BinaryIndicator> ::= "B" | "b"
 <BinaryLiteral> ::= "#" <NoWhitespace> <Hexits> | "#|" <FreeformLiteral> | "#" <NoWhitespace> <File>
 <Bit> ::= "0" | "1"
-<BitLiteral> ::= 0 <BinaryIndicator> <Bits>
+<BitLiteral> ::= "0" <BinaryIndicator> <Bits>
 <BitOrUnderscore> ::= <Bit> | "_"
 <Bits> ::= <Bit> [<BitsOrUnderscores>]
 <BitsOrUnderscores> ::= <BitOrUnderscore> <BitsOrUnderscoresRest>
@@ -52,6 +52,10 @@
 <Catches> ::= <Catch> <CatchesRest>
 <CatchesRest> ::= <Catch> <CatchesRest> | ε
 <Category> ::= "module" | "package" | "class" | "interface" | "service" | "const" | "enum" | "mixin"
+<CharLiteral> ::= "'" <SingleCharacter> "'"
+<CharacterEscape> ::= "\\" | "\" | "\b" | "\f" | "\n" | "\r" | "\t"
+<CharacterString> ::= <StringCharacter> <CharacterStringRest>
+<CharacterStringRest> ::= <StringCharacter> <CharacterStringRest> | ε
 <CollectionLiteral> ::= "[" [<ExpressionList>] "]" | <TypeExpression> <NoWhitespace> ":" "[" [<ExpressionList>] "]"
 <CompilationUnit> ::= [<ImportStatements>] <TypeCompositionStatement>
 <Composition> ::= "extends" <ExtendsList> | "implements" <ImplementsList> | "delegates" <DelegatesList> | "incorporates" <IncorporatesList> | "into" <AnyTypeExpression> | "import" [<ImportModifier>] <QualifiedName> [<VersionRequirement>] [<ResourceProvider>] | "default" "(" <Expression> ")"
@@ -108,7 +112,7 @@
 <EqualityExpression> ::= <RelationalExpression> <EqualityExpressionRest>
 <EqualityExpressionRest> ::= "==" <RelationalExpression> | "!=" <RelationalExpression> <EqualityExpressionRest> | ε
 <Exponent> ::= ε <ExponentRest>
-<ExponentRest> ::= Indicator <IntegerLiteral> <ExponentRest> | ε
+<ExponentRest> ::= <Indicator> <IntegerLiteral> <ExponentRest> | ε
 <ExponentIndicator> ::= <DecimalExponentIndicator> | <BinaryExponentIndicator>
 <Expression> ::= <ElseExpression>
 <ExpressionList> ::= <Expression> <ExpressionListRest>
@@ -134,7 +138,7 @@
 <ForCondition> ::= [<VariableInitializationList>] ";" [<ConditionList>] ";" [<VariableModificationList>] | <OptionalDeclaration> ":" <Expression> | "(" <OptionalDeclarationList> "," <OptionalDeclaration> ")" ":" <Expression>
 <ForStatement> ::= "for" "(" <ForCondition> ")" <StatementBlock>
 <FractionalLiteral> ::= "0" <BinaryIndicator> [<Bits>] "." <Bits> | "0" "o" [<Octals>] "." <Octals> | [<Digits>] "." <Digits> | "0" <HexIndicator> [<Hexits>] "." <Hexits>
-<FreeformChar> ::= InputCharacter except <LineTerminator>
+<FreeformChar> ::= <InputCharacter> except <LineTerminator>
 <FreeformChars> ::= <FreeformChar> <FreeformCharsRest>
 <FreeformCharsRest> ::= <FreeformChar> <FreeformCharsRest> | ε
 <FreeformLine> ::= [<Whitespace>] "|" <FreeformChars> <LineTerminator>
@@ -167,6 +171,10 @@
 <IncorporatesList> ::= <IncorporatesSingle> <IncorporatesListRest>
 <IncorporatesListRest> ::= "," <IncorporatesSingle> <IncorporatesListRest> | ε
 <IncorporatesSingle> ::= "conditional" <QualifiedName> <TypeParameterList> [<ArgumentList>] | <TypeExpression> [<ArgumentList>]
+<Indicator> ::= <BinaryIndicator> | <HexIndicator> | <OctalIndicator>
+<InputCharacter> ::= <RawCharacter> except <LineTerminator>
+<InputCharacters> ::= <InputCharacter> <InputCharactersRest>
+<InputCharactersRest> ::= <InputCharacter> <InputCharactersRest> | ε
 <IntTypeName> ::= "Int" | "Int8" | "Int16" | "Int32" | "Int64" | "Int128" | "IntN" | "Byte" | "UInt" | "UInt8" | "UInt16" | "UInt32" | "UInt64" | "UInt128" | "UIntN"
 <IntegerLiteral> ::= [<Sign>] <UnsignedIntegerLiteral>
 <IntersectingTypeExpression> ::= <UnionedTypeExpression> <IntersectingTypeExpressionRest>
@@ -185,7 +193,8 @@
 <LambdaParametersRest> ::= "," <LambdaParameter> <LambdaParametersRest> | ε
 <Letter> ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
 <LineTerminator> ::= "\u000a" | "\u000b" | "\u000c" | "\u000d" ["\u000a"] | "\u0085" | "\u2028" | "\u2029"
-<Literal> ::= <TypedNumericLiteral> | <IntegerLiteral> | FPDecimalLiteral | FPBinaryLiteral | CharLiteral | <StringLiteral> | <BinaryLiteral> | <TupleLiteral> | ListLiteral | <MapLiteral> | <VersionLiteral> | <DateLiteral> | <TimeOfDayLiteral> | <TimeLiteral> | <TimeZoneLiteral> | <DurationLiteral> | <PathLiteral> | <FileLiteral> | <DirectoryLiteral> | <FileStoreLiteral>
+<ListLiteral> ::= "[" "]" | "[" [<ExpressionList>] "]" | <TypeExpression> <NoWhitespace> ":" "[" [<ExpressionList>] "]"
+<Literal> ::= <TypedNumericLiteral> | <IntegerLiteral> | FPDecimalLiteral | FPBinaryLiteral | <CharLiteral> | <StringLiteral> | <BinaryLiteral> | <TupleLiteral> | <ListLiteral> | <MapLiteral> | <VersionLiteral> | <DateLiteral> | <TimeOfDayLiteral> | <TimeLiteral> | <TimeZoneLiteral> | <DurationLiteral> | <PathLiteral> | <FileLiteral> | <DirectoryLiteral> | <FileStoreLiteral>
 <MapLiteral> ::= "[" [<Entries>] "]" | <TypeExpression> <NoWhitespace> ":" "[" [<Entries>] "]"
 <MethodDeclarationFinish> ::= ";" | "=" <Expression> ";" | <StatementBlock>
 <MethodDeclarationStatement> ::= [<MethodModifiers>] [<TypeParameterList>] <MethodIdentity> <ParameterList> <MethodDeclarationFinish>
@@ -221,7 +230,8 @@
 <NonGAVersion> ::= "-" <NoWhitespace> <DigitsNoUnderscores> | "." <NoWhitespace> <DigitsNoUnderscores> | <DigitsNoUnderscores>
 <NumericLiteral> ::= <IntegerLiteral> | <FloatingPointLiteral>
 <Octal> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7"
-<OctalLiteral> ::= "0" "o" <Octals>
+<OctalIndicator> ::= "O" | "o"
+<OctalLiteral> ::= "0" <OctalIndicator> <Octals>
 <OctalOrUnderscore> ::= <Octal> | "_"
 <Octals> ::= <Octal> [<OctalsOrUnderscores>]
 <OctalsOrUnderscores> ::= <OctalOrUnderscore> <OctalsOrUnderscoresRest>
@@ -260,6 +270,9 @@
 <QualifiedNameRest> ::= "." <Name> <QualifiedNameRest> | ε
 <RangeExpression> ::= <BitwiseExpression> <RangeExpressionRest>
 <RangeExpressionRest> ::= ".." <BitwiseExpression> <RangeExpressionRest> | ε
+<RawCharacter> ::= <NoWhitespace> | <Whitespace>
+<RawCharacters> ::= <RawCharacter> <RawCharactersRest>
+<RawCharactersRest> ::= <RawCharacter> <RawCharactersRest> | ε
 <RedundantReturnSpecifier> ::= "<" <TypeExpressionList> ">"
 <RelationalExpression> ::= <AssignmentExpression> | <AssignmentExpression> "<=>" <AssignmentExpression> <RelationalExpressionRest>
 <RelationalExpressionRest> ::= "<"   <AssignmentExpression> | "<="  <AssignmentExpression> | ">"   <AssignmentExpression> | ">="  <AssignmentExpression> <RelationalExpressionRest> | ε
@@ -278,6 +291,7 @@
 <SecondsDuration> ::= <DigitsNoUnderscores> <NoWhitespace> "S"
 <SecondsFraction> ::= "." <NoWhitespace> <Digits>
 <Sign> ::= "+" | "-"
+<SingleCharacter> ::= <InputCharacter> except \ or ' | <CharacterEscape>
 <SingleReturnList> ::= <TypeExpression>
 <Statement> ::= <TypeCompositionStatement> | <PropertyDeclarationStatement> | <MethodDeclarationStatement> | <VariableDeclaration> ";" | <Assignment> ";" | <LabeledStatement> | <AssertStatement> | <BreakStatement> | <ContinueStatement> | <DoStatement> | <ForStatement> | <IfStatement> | <ImportStatement> | <ReturnStatement> | <SwitchStatement> | <TryStatement> | <TypeDefStatement> | <UsingStatement> | <WhileStatement> | <Expression> ";" <StatementRest>
 <StatementRest> ::= Block <StatementRest> | ε
@@ -285,7 +299,8 @@
 <StatementExpression> ::= <StatementBlock> | "throw" <TernaryExpression> | "TODO" [<TodoFinish>] | "assert"
 <Statements> ::= <Statement> <StatementsRest>
 <StatementsRest> ::= <Statement> <StatementsRest> | ε
-<StringLiteral> ::= '"' [CharacterString] '"' | '$"' [CharacterString] '"' | "\|" <FreeformLiteral> | "$|" <FreeformLiteral> | "$" <NoWhitespace> <File>
+<StringCharacter> ::= <InputCharacter> except \ or " | <CharacterEscape>
+<StringLiteral> ::= '"' [<CharacterString>] '"' | '$"' [<CharacterString>] '"' | "\|" <FreeformLiteral> | "$|" <FreeformLiteral> | "$" <NoWhitespace> <File>
 <SwitchBlock> ::= <SwitchLabels> <Statements> [<SwitchBlockFinish>]
 <SwitchBlockFinish> ::= <BreakStatement> | <ContinueStatement>
 <SwitchBlocks> ::= <SwitchBlock> <SwitchBlocksRest>
@@ -307,7 +322,7 @@
 <TimeOfDayLiteral> ::= "TimeOfDay:" <Digit> <Digit> ":" <Digit> <Digit> [<Seconds>]
 <TimeZone> ::= "Z" | "+" <NoWhitespace> <Digit> <NoWhitespace> <Digit> <NoWhitespace> [<MinutesOffset>] | "-" <NoWhitespace> <Digit> <NoWhitespace> <Digit> <NoWhitespace> [<MinutesOffset>]
 <TimeZoneLiteral> ::= "<TimeZone>:" <NoWhitespace> <TimeZone>
-<TodoFinish> ::= InputCharacter-not-"(" InputCharacters <LineTerminator> | <NoWhitespace> "(" [<Expression>] ")"
+<TodoFinish> ::= <InputCharacter>-not-"(" <InputCharacters> <LineTerminator> | <NoWhitespace> "(" [<Expression>] ")"
 <TryFinish> ::= <Catches> | [<Catches>] "finally" <StatementBlock>
 <TryResources> ::= "(" <VariableInitializationList> ")"
 <TryStatement> ::= "try" [<TryResources>] <StatementBlock> <TryFinish>
