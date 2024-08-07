@@ -42,6 +42,7 @@
     "vscode-languageclient": "^9.0.1"
   },
   "dependencies": {
-    "@types/vscode": "^1.92.0"
+    "@types/vscode": "^1.92.0",
+    "npm-check-updates": "^17.0.3"
   }
 }
